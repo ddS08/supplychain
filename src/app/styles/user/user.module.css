@@ -60,7 +60,7 @@
     flex-wrap: wrap;
     gap: 1rem;
     padding: 1rem; /* Add padding to center text vertically */
-    padding-top: 75px;
+    padding-top: 100px;
   }
   
   .card {

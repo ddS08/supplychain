@@ -62,7 +62,7 @@ export default function Home() {
               <Link href="/dashboard/supplier">Supplier</Link>
             </li>
             <li>
-              <Link href="/dashboard/user">User</Link>
+              <Link href="/user">User</Link>
             </li>
           </ul>
         </nav>
