@@ -102,18 +102,28 @@
   
   .feature-card {
     perspective: 1000px;
-    width: calc(33.33% - 1rem); /* Adjust card width as needed */
+    width: calc(33.33% - 1rem);
     cursor: pointer;
     position: relative;
-    transition: transform 0.5s;
+    transition: transform 0.5s, box-shadow 0.3s, background-color 0.3s; /* Add transitions */
     transform-style: preserve-3d;
     background-color: #f2a900;
-    height: 300px; /* Increase card height */
+    height: 300px;
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-card:hover {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    background-color: #e29600; /* Change background color on hover */
   }
   
   .featuresh2 {
-    width: 100%; /* Ensure the heading takes full width */
-    text-align: center; /* Center the heading */
+    text-align: center;
+    color: #fff; /* Set the text color to white */
+    font-size: 1.5rem; /* Increase the font size */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a text shadow */
   }
   
 
@@ -142,17 +152,19 @@
   }
   
   .card-title {
-    font-size: 2rem; /* Increase font size */
+    font-size: 2rem;
     margin: 0;
     padding: 0.5rem;
-
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add text shadow */
   }
   
   .card-description {
-    display: none; /* Hide description initially */
-    font-size: 1.5rem; /* Adjust font size */
+    display: none;
+    font-size: 1.5rem;
     margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add text shadow */
   }
+  
   
   .feature-card.flipped .card-title {
     display: none; /* Hide title when flipped */

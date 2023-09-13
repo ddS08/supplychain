@@ -12,19 +12,18 @@ export default function Home() {
   const handleCardClick = (index : any) => {
     setFlippedCard(flippedCard === index ? null : index);
   };
-
   const cardData = [
     {
       title: 'Efficient Supply Chain Management',
       description: 'Streamline your pharmaceutical supply chain for maximum efficiency.',
     },
     {
-      title: 'Efficient Supply Chain Management',
-      description: 'Streamline your pharmaceutical supply chain for maximum efficiency.',
+      title: 'Improved Transparency',
+      description: 'Enhance transparency in the pharmaceutical distribution process.',
     },
     {
-      title: 'Efficient Supply Chain Management',
-      description: 'Streamline your pharmaceutical supply chain for maximum efficiency.',
+      title: 'Patient Safety',
+      description: 'Prioritize patient safety with our secure and traceable supply chain solution.',
     },
     // Add more card data here
   ];
