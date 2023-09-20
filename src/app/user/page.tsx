@@ -20,7 +20,7 @@ export default function User() {
               <Link href="/user">Dashboard</Link>
             </li>
             <li>
-              <Link href="/login">Login</Link>
+              <Link href="/user/Login">Login</Link>
             </li>
             <li>
               <Link href="/user/Register">Register</Link>
@@ -46,6 +46,12 @@ export default function User() {
           </div>
           <div className={styles.card}>
             <Link href="/insights">Medicine Insights</Link>
+          </div>
+          <div className={styles.card}>
+            <Link href="/insights">Report an issue</Link>
+          </div>
+          <div className={styles.card}>
+            <Link href="/insights">Prior purchases</Link>
           </div>
         </section>
       </main>

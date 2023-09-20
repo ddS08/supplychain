@@ -83,7 +83,7 @@ const Register: React.FC = () => {
               <Link href="/user">Dashboard</Link>
             </li>
             <li>
-              <Link href="/login">Login</Link>
+              <Link href="/user/Login">Login</Link>
             </li>
             <li>
               <Link href="#" className={styles.activeLink}>Register</Link>
