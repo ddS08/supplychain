@@ -1,0 +1,93 @@
+/* viewCart.module.css */
+
+/* General Styles */
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background-image: url('../../../../../public/bg.png');
+  }
+  
+  .header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    color: #f2a900;
+  }
+  
+  .activeLink {
+    color: #f2a900;
+  }
+  
+  /* View Cart Page Styles */
+  .view-cart-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .cart-table th {
+    background-color: #f2a900;
+    color: #fff;
+  }
+  
+  
+  .track-order-button {
+    background-color: #f2a900;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .track-order-button:hover {
+    background-color: #333;
+  }
+  
+  .user-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-container svg {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }

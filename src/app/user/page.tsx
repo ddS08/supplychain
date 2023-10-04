@@ -36,13 +36,13 @@ export default function User() {
             <Link href="/track-order">Order Tracking</Link>
           </div>
           <div className={styles.card}>
-            <Link href="/buy-item">Purchase Items</Link>
+            <Link href="/user/purchaseitem">Purchase Items</Link>
           </div>
           <div className={styles.card}>
-            <Link href="/see-cart">View Cart</Link>
+            <Link href="/user/ViewCart">View Cart</Link>
           </div>
           <div className={styles.card}>
-            <Link href="/scan">Product Scanning</Link>
+            <Link href="/user/productscanning">Product Scanning</Link>
           </div>
           <div className={styles.card}>
             <Link href="/insights">Medicine Insights</Link>
