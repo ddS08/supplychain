@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/user/Login/login.module.css';
 import Link from 'next/link';
+import Navbar from '../Navbar';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -24,25 +25,9 @@ const Login: React.FC = () => {
   };
 
   return (
+    <div><Navbar/>
     <div className={styles.container}>
-      <header className={styles.header}>
-        <nav className={styles.nav}>
-          <div className={styles.logo}>
-            <Link href="/">PharmaChain</Link>
-          </div>
-          <ul className={styles['nav-links']}>
-            <li>
-              <Link href="/user">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="#" className={styles.activeLink}>Login</Link>
-            </li>
-            <li>
-              <Link href="/user/Register">Register</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      
       <div className={styles.card}>
         <h2>Login</h2>
         <hr className="mt-1 mb-2" />
@@ -80,6 +65,7 @@ const Login: React.FC = () => {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 };

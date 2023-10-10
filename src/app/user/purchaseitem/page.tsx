@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../styles/user/purchaseitem/purchaseitem.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import Navbar from '../Navbar';
 
 interface Medicine {
   id: number;
@@ -108,24 +109,7 @@ function PurchaseItemPage() {
   }, [selectedMedicine]);
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <nav className={`${styles.nav} ${styles.loginNav}`}> {/* Added the loginNav class */}
-          <div className={styles.logo}>
-            <Link href="/">PharmaChain</Link>
-          </div>
-          <ul className={styles['nav-links']}>
-            <li>
-              <Link href="/user">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="#" className={styles.activeLink}>Login</Link>
-            </li>
-            <li>
-              <Link href="/user/Register">Register</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Navbar/>
       <div className={styles['purchase-item-page']}>
         <div className={styles['medicine-list']}>
           {medicinesData.map((medicine) => (

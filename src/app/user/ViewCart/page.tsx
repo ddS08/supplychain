@@ -5,6 +5,7 @@ import styles from '../../styles/user/ViewCart/ViewCart.module.css';
 import Link from 'next/link';
 import { FaRegUserCircle } from "react-icons/fa";
 import Image from 'next/image'; // Import the Image component
+import Navbar from '../Navbar';
 
 function ViewCartPage() {
   // Sample data for medicines in the cart
@@ -36,25 +37,9 @@ function ViewCartPage() {
   };
 
   return (
+    <div><Navbar/>
     <div className={styles.container}>
-      <header className={styles.header}>
-        <nav className={`${styles.nav} ${styles.viewCartNav}`}>
-          <div className={styles.logo}>
-            <Link href="/">PharmaChain</Link>
-          </div>
-          <ul className={styles['nav-links']}>
-            <li>
-              <Link href="/user">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/user/"><div className={styles['user-container']}>
-                  <FaRegUserCircle />
-                  <span>User</span>
-                </div></Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      
       <div className={styles['view-cart-page']}>
         <h1>View Cart</h1>
         <table className={styles['cart-table']}>
@@ -103,6 +88,7 @@ function ViewCartPage() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/user/productscanning/productscanning.module.css'; 
 import Link from 'next/link';
+import Navbar from '../Navbar';
 
 interface ProductInfo {
   name: string;
@@ -27,25 +28,9 @@ function ProductScanningPage() {
   };
 
   return (
+    <div><Navbar/>
     <div className={styles.container}>
-      <header className={styles.header}>
-        <nav className={`${styles.nav} ${styles.productScanningNav}`}>
-          <div className={styles.logo}>
-            <Link href="/">PharmaChain</Link>
-          </div>
-          <ul className={styles['nav-links']}>
-            <li>
-              <Link href="/user">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/user/Login">Login</Link>
-            </li>
-            <li>
-              <Link href="/user/Register">Register</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      
       <div className={styles['product-scanning-page']}>
         <h1>Product Scanning Page</h1>
         <div className={styles['qr-code-input']}>
@@ -74,6 +59,7 @@ function ProductScanningPage() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/user/Register/Register.module.css';
 import Link from 'next/link';
+import Navbar from '../Navbar';
 
 const Register: React.FC = () => {
   // Initialize state for form data and error messages
@@ -70,27 +71,9 @@ const Register: React.FC = () => {
   };
 
   return (
+    <div><Navbar/>
     <div className={styles.container}>
       
-
-<header className={styles.header}>
-        <nav className={styles.nav}>
-          <div className={styles.logo}>
-            <Link href="/">PharmaChain</Link>
-          </div>
-          <ul className={styles['nav-links']}>
-            <li>
-              <Link href="/user">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/user/Login">Login</Link>
-            </li>
-            <li>
-              <Link href="#" className={styles.activeLink}>Register</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
       <div className={styles.card}>
         <h2>Register</h2>
         <hr className="mt-1 mb-2" />
@@ -175,6 +158,7 @@ const Register: React.FC = () => {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 };
