@@ -44,7 +44,7 @@ export default function Home() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/dashboard/admin">Admin</Link>
+              <Link href="/Admin">Admin</Link>
             </li>
             <li>
               <Link href="/dashboard/manufacturer">Manufacturer</Link>

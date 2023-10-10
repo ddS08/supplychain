@@ -1,0 +1,111 @@
+/* AdminDashboard.module.css */
+
+/* Container styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: black; /* Background color */
+    color: gold; /* Text color */
+  }
+  
+  /* Header styles */
+  .header {
+    background-color: black; /* Background color */
+    padding: 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+  }
+  
+  /* Navigation styles */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: gold; /* Text color for links */
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: white; /* Text color on hover */
+  }
+  
+  /* Admin Dashboard Page styles */
+  .admin-dashboard-page {
+    background-color: black; /* Background color */
+    color: gold; /* Text color */
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Admin Function Card styles */
+  .admin-functions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .admin-function-card {
+    background-color: gold; /* Card background color */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .admin-function-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .admin-function-card h2,
+  .admin-function-card p {
+    color: black; /* Text color */
+  }
+  
+  .button {
+    background-color: black; /* Button background color */
+    color: gold; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: gold; /* Button background color on hover */
+    color: black; /* Button text color on hover */
+  }
+  
