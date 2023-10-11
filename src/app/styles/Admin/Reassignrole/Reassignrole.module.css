@@ -1,0 +1,96 @@
+/* AdminReassignUser.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../../../../../public/bg.png');
+    background-size: contain;
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center;
+    color: gold;
+  }
+  
+  .header {
+    background-color: black;
+    padding: 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    font-size: 25px;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: white;
+  }
+  
+  .admin-reassign-user-page {
+    text-align: center;
+  }
+  
+  .h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .label {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .input,
+  .select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: grey;
+  }
+  
+  .button {
+    background-color: gold;
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    background-color: #ffcc00;
+  }
+  

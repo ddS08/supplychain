@@ -1,4 +1,4 @@
-// pages/admin/AdminDashboard.js
+"use client"
 import Link from 'next/link';
 import styles from '../../app/styles/Admin/dashboard.module.css';
 
@@ -14,7 +14,7 @@ function AdminDashboard() {
           </div>
           <ul className={styles['nav-links']}>
             <li>
-              <Link href="/admin/dashboard">Admin Dashboard</Link>
+              <Link href="/Admin">Admin Dashboard</Link>
             </li>
             <li>
               <Link href="/">Home</Link>
@@ -25,21 +25,21 @@ function AdminDashboard() {
       <div className={styles['admin-dashboard-page']}>
         <h1 className={styles.h1}>Welcome to Admin Dashboard</h1>
         <div className={styles['admin-functions']}>
-          <Link href="/admin/register-user">
+          <Link href="/Admin/RegisterUser">
             <div className={styles['admin-function-card']}>
               <h2 className={styles.h2}>Register User</h2>
               <p className={styles.p}>Add a new user to the system.</p>
               <button className={styles.button}>Add User</button>
             </div>
           </Link>
-          <Link href="/admin/reassign-role">
+          <Link href="/Admin/Reassignrole">
             <div className={styles['admin-function-card']}>
               <h2 className={styles.h2}>Reassign Role</h2>
               <p className={styles.p}>Change the role of an existing user.</p>
               <button className={styles.button}>Reassign Role</button>
             </div>
           </Link>
-          <Link href="/admin/revoke-role">
+          <Link href="/Admin/Revokerole">
             <div className={styles['admin-function-card']}>
               <h2 className={styles.h2}>Revoke Role</h2>
               <p className={styles.p}>Remove a role from an existing user.</p>
