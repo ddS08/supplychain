@@ -13,7 +13,7 @@ function SupplierPage() {
           </div>
           <ul className={styles['nav-links']}>
             <li>
-              <Link href="/supplier">Supplier Dashboard</Link>
+              <Link href="/Supplier">Supplier Dashboard</Link>
             </li>
             <li>
               <Link href="/">Home</Link>
@@ -30,7 +30,7 @@ function SupplierPage() {
               <p>Create a new raw material entry</p>
             </div>
           </Link>
-          <Link href="/supplier/sold-raw-materials">
+          <Link href="/Supplier/Soldrawmaterial">
             <div className={styles['function-card']}>
               <h2>Sold Raw Materials</h2>
               <p>View sold raw materials</p>

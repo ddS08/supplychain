@@ -29,7 +29,7 @@ function CreateRawMaterialPage() {
           </div>
           <ul className={styles['nav-links']}>
             <li>
-              <Link href="/supplier">Supplier Dashboard</Link>
+              <Link href="/Supplier">Supplier Dashboard</Link>
             </li>
             <li>
               <Link href="/">Home</Link>

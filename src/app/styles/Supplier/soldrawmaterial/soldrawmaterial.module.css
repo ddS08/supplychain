@@ -1,0 +1,96 @@
+/* soldrawmaterial.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: gold;
+    background-image: url('../../../../../public/bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Header styles */
+.header {
+    background-color: black;
+    padding: 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    font-size: 25px;
+}
+
+/* Navigation styles */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.supplier-page {
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.raw-material-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.raw-material-table th,
+.raw-material-table td {
+    border: 1px solid gold;
+    padding: 10px;
+    text-align: center;
+}
+
+.raw-material-table th {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+}
+
+.raw-material-table td {
+    background-color: black;
+    color: gold;
+}
+
+.raw-material-table tr:nth-child(even) {
+    background-color: #333;
+}
+
+.raw-material-table tr:nth-child(odd) {
+    background-color: #222;
+}
