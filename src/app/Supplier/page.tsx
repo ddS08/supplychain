@@ -18,6 +18,9 @@ function SupplierPage() {
             <li>
               <Link href="/">Home</Link>
             </li>
+            <li>
+              <Link href="/">UserInfo</Link>
+            </li>
           </ul>
         </nav>
       </header>

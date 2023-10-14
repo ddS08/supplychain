@@ -62,7 +62,6 @@ const medicinesData: Medicine[] = [
     image: 'medicine.jpeg',
     manufacturer: 'Manufacturer B',
   },
-  // Add more medicine data as needed
 ];
 
 function PurchaseItemPage() {
@@ -148,7 +147,6 @@ function PurchaseItemPage() {
                   <button className={styles['add-to-cart-button']} onClick={() => handleAddToCart(medicine)}>
                     Add to Cart
                   </button>
-                  {/* Add more details here */}
                 </div>
               )}
             </div>

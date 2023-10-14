@@ -1,0 +1,157 @@
+/* BuyRawMaterial.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: gold;
+    background-image: url('../../../../../public/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* Header styles */
+  .header {
+    background-color: black;
+    padding: 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    font-size: 25px;
+  }
+  
+  /* Navigation styles */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: white;
+  }
+  
+  .buy-raw-material-page {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .raw-material-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .raw-material-card {
+    border: 1px solid gold;
+    border-radius: 10px;
+    background-color: black;
+    color: gold;
+    text-align: center;
+    min-width: 300px;
+    padding: 20px;
+    position: relative;
+  }
+  .raw-image-main-info{
+    padding-left: 67.5px;
+    
+  }
+  .raw-material-image {
+    
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  
+  .raw-material-details {
+    padding: 0 10px; /* Add padding for spacing */
+  }
+  
+  .h2 {
+    font-size: 20px; /* Adjust the font size */
+  }
+  
+  .supplier-name {
+    font-size: 14px;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+  .total-quantity {
+    margin-top: 10px;
+  }
+  
+  .price-per-unit {
+    margin-top: 10px;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .quantity-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .quantity-button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-to-cart-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
