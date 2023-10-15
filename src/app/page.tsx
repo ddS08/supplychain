@@ -53,7 +53,7 @@ export default function Home() {
               <Link href="/dashboard/retailer">Retailer</Link>
             </li>
             <li>
-              <Link href="/dashboard/distributor">Distributor</Link>
+              <Link href="/Distributor">Distributor</Link>
             </li>
             <li>
               <Link href="/dashboard/transporter">Transporter</Link>

@@ -1,0 +1,104 @@
+/* distributor.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('./../../../../public/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* Header styles */
+  .header {
+    background-color: black;
+    padding: 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    font-size: 25px;
+  }
+  
+  /* Navigation styles */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: white;
+  }
+  
+  .h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    margin-left:540px;
+    color: gold; /* Header color */
+    font-weight: normal;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Use your preferred elegant font */
+  }
+
+  
+  .function-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .function-card {
+    padding: 20px;
+    min-width: 700px;
+    border: 1px solid gold;
+    border-radius: 10px;
+    background-color: gold;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Add transform for hover effect */
+  }
+  
+  .function-card:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02); /* Add a slight zoom effect on hover */
+  }
+  
+  .function-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .function-card p {
+    font-size: 18px;
+  }
+  
+  .function-card:hover h2,
+  .function-card:hover p {
+    color: gold;
+  }
+  
+  

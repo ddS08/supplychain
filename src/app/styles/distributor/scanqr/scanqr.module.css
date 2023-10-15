@@ -5,10 +5,11 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('../../../../../public/bg.png');
+    background-image: url('../../../../../public/bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: white;
   }
   
   /* Header styles */
@@ -122,6 +123,7 @@
     color: black;
     font-weight: bold;
     margin-top: 20px;
+    margin-bottom: 10px;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -133,7 +135,9 @@
     background-color: black;
     color: gold;
   }
-  .rawmaterial-image{
-    margin-left: 20px;
+  .medicine-image{
+    margin-top: 10px;
+    border-radius: 10px;
+    margin-left: 75px;
     width: 100px;;
   }
