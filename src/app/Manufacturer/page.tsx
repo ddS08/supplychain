@@ -33,13 +33,13 @@ function ManufacturerDashboardPage() {
               <p>Buy raw material to manufacture medicines</p>
             </div>
           </Link>
-          <Link href="/manufacturer/sell-medicine">
+          <Link href="/Manufacturer/sellmedicine">
             <div className={styles['function-card']}>
               <h2>Sell Medicine</h2>
               <p>Sell manufactured medicines</p>
             </div>
           </Link>
-          <Link href="/manufacturer/scan-raw-material">
+          <Link href="/Manufacturer/scanrawmaterial">
             <div className={styles['function-card']}>
               <h2>Scan Raw Material</h2>
               <p>Scan raw material for quality control</p>
