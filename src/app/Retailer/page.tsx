@@ -1,9 +1,10 @@
-// Distributor.tsx
+// Retailer.tsx
+"use client"
 import React from "react";
 import Link from "next/link";
-import styles from "./../styles/distributor/distributor.module.css";
+import styles from "./../styles/retailer/retailer.module.css";
 
-function DistributorPage() {
+function RetailerPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -13,7 +14,7 @@ function DistributorPage() {
           </div>
           <ul className={styles["nav-links"]}>
             <li>
-              <Link href="/Distributor">Distributor Dashboard</Link>
+              <Link href="/Retailer">Retailer Dashboard</Link>
             </li>
             <li>
               <Link href="/">Home</Link>
@@ -21,25 +22,26 @@ function DistributorPage() {
           </ul>
         </nav>
       </header>
-      <div className={styles["distributor-page"]}>
-        <h1 className={styles.h1}>Distributor Dashboard</h1>
+      <div className={styles["retailer-page"]}>
+        <h1 className={styles.h1}>Retailer Dashboard</h1>
+
         <div className={styles['function-cards']}>
-          <Link href="/Distributor/scanqr">
+          <Link href="/Retailer/scanqr">
             <div className={styles['function-card']}>
-            <h2>Scan QR Code</h2>
-            <p>Scan a QR code for a raw material.</p>
+                <h2>Scan QR</h2>
+                <p>Click to scan QR code</p>
             </div>
           </Link>
-          <Link href="/Distributor/sellittoretailer">
+          <Link href="/Retailer//sellanitem">
             <div className={styles['function-card']}>
-            <h2>Scan QR Code and Sell it to Retailer</h2>
-            <p>Scan a QR code for a raw material and send it to the retailer.</p>
+                <h2>Sell Item</h2>
+                <p>Click to sell an item</p>
             </div>
           </Link>
-      </div>
+          </div>
       </div>
     </div>
   );
 }
 
-export default DistributorPage;
+export default RetailerPage;

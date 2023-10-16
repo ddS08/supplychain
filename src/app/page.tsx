@@ -47,19 +47,16 @@ export default function Home() {
               <Link href="/Admin">Admin</Link>
             </li>
             <li>
-              <Link href="/Manufacturer">Manufacturer</Link>
+              <Link href="/Supplier">Supplier</Link>
             </li>
             <li>
-              <Link href="/dashboard/retailer">Retailer</Link>
+              <Link href="/Manufacturer">Manufacturer</Link>
             </li>
             <li>
               <Link href="/Distributor">Distributor</Link>
             </li>
             <li>
-              <Link href="/dashboard/transporter">Transporter</Link>
-            </li>
-            <li>
-              <Link href="/Supplier">Supplier</Link>
+              <Link href="/Retailer">Retailer</Link>
             </li>
             <li>
               <Link href="/user">User</Link>

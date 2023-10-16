@@ -1,0 +1,171 @@
+/* selltoretailer.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../../../../../public/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Header styles */
+.header {
+    background-color: black;
+    padding: 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    font-size: 25px;
+}
+
+/* Navigation styles */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.sell-to-retailer-page {
+    text-align: center;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+.h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: gold;
+    font-weight: normal;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+/* Scan Container styles */
+.scan-container {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    color: black;
+    margin-right: 10px;
+}
+
+.scan-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.scan-button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Popup styles */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 40px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    color: gold;
+    text-align: center;
+    z-index: 999;
+    font-size: 18px; /* Increased font size for all text in the card */
+}
+
+.retailer-dropdown {
+    margin-top: 20px;
+}
+
+.dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    color: black;
+    font-size: 16px; /* Increased font size for dropdown */
+}
+
+.sell-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 20px;
+    margin-right: 10px; /* Added margin between buttons */
+    font-size: 18px; /* Increased font size for the buttons */
+}
+
+.sell-button:hover {
+    background-color: black;
+    color: gold;
+}
+
+.popup-close-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 18px; /* Increased font size for the close button */
+}
+
+.popup-close-button:hover {
+    background-color: black;
+    color: gold;
+}
+
+.rawmaterial-image {
+    margin-left: 20px;
+    width: 100px;
+}
