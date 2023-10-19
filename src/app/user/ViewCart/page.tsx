@@ -3,7 +3,6 @@
 import React from 'react';
 import styles from '../../styles/user/ViewCart/ViewCart.module.css';
 import Link from 'next/link';
-import { FaRegUserCircle } from "react-icons/fa";
 import Image from 'next/image'; // Import the Image component
 import Navbar from '../Navbar';
 
