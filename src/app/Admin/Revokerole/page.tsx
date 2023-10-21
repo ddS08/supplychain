@@ -3,15 +3,42 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../styles/Admin/Revokerole/Revokerole.module.css';
+import PopupCard from './popupcard';
 
 function RevokeRole() {
-  const [userName, setUserName] = useState('');
+  const [key, setkey] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const handleRevokeRole = () => {
-    // Implement your logic to revoke the role for the provided username
-    console.log(`Revoking role for user: ${userName}`);
+  const handleRevokeRole = async() => {
+    const response = await fetch('/api/revoke-role', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({key }),
+      
+   });
+   
+   console.log("response",response);
+   if (response) {
+     setMessage('User role revoked successfully'); // Update the message
+   } else {
+     setMessage('Failed to add user(Maybe theres no such user)'); // Update the message
+   }
+   setIsPopupVisible(true);
+   setShowPopup(true);
   };
+  const handleOKClick = () => {
+   // Hide the pop-up
+   setShowPopup(false);
 
+   // Reload the page
+   window.location.reload();
+ };
+ const closePopup = () => {
+   // Close the pop-up when the "OK" button is clicked
+   setIsPopupVisible(false);
+ }
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -32,17 +59,20 @@ function RevokeRole() {
       <div className={styles['revoke-role-page']}>
         <h1 className={styles.h1}>Revoke Role</h1>
         <div className={styles['user-form']}>
-          <label htmlFor="userName">User Name:</label>
+          <label htmlFor="key">Key:</label>
           <input
             type="text"
-            id="userName"
-            value={userName}
+            id="key"
+            value={key}
             className={styles.input}
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => setkey(e.target.value)}
           />
           <button className={styles.button} onClick={handleRevokeRole}>Revoke Role</button>
         </div>
       </div>
+      {isPopupVisible && (
+        <PopupCard message={message} onOKClick={closePopup} />
+      )}
     </div>
   );
 }

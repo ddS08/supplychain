@@ -3,17 +3,46 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './../../styles/Admin/Reassignrole/Reassignrole.module.css';
+import PopupCard from './popupcard';
 
 function AdminReassignUser() {
-  const [name, setName] = useState('');
-  const [newRole, setNewRole] = useState('user');
+
+  const [message, setMessage] = useState(''); 
+  const [role, setRole] = useState('user');
+  const [key, setKey] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+   
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const roles = ['user', 'supplier', 'manufacturer', 'distributor', 'retailer'];
 
-  const handleReassignUser = () => {
-    // Implement your logic to reassign the role for the user with the given name
-    console.log(`Reassigning role for user: ${name} to: ${newRole}`);
+  const handleSubmit = async () => {
+    const response = await fetch('/api/reassign-role', {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({key, role }),
+    });
+    
+    console.log("response");
+    if (response.ok) {
+      setMessage('User role reassigned successfully'); // Update the message
+    } else {
+      setMessage('Failed to reassign role(Maybe theres no such user)'); // Update the message
+    }
+    setIsPopupVisible(true);
+    setShowPopup(true);
+   };
+   const handleOKClick = () => {
+    // Hide the pop-up
+    setShowPopup(false);
+
+    // Reload the page
+    window.location.reload();
   };
+  const closePopup = () => {
+    // Close the pop-up when the "OK" button is clicked
+    setIsPopupVisible(false);
+  }
 
   return (
     <div className={styles.container}>
@@ -35,20 +64,20 @@ function AdminReassignUser() {
       <div className={styles['admin-reassign-user-page']}>
         <h1 className={styles.h1}>Reassign User</h1>
         <div className={styles['user-form']}>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="key">Key:</label>
           <input
             type="text"
-            id="name"
-            value={name}
+            id="Key"
+            value={key}
             className={styles.input}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setKey(e.target.value)}
           />
           <label htmlFor="newRole">New Role:</label>
           <select
             id="newRole"
-            value={newRole}
+            value={role}
             className={styles.select}
-            onChange={(e) => setNewRole(e.target.value)}
+            onChange={(e) => setRole(e.target.value)}
           >
             {roles.map((r) => (
               <option key={r} value={r}>
@@ -56,9 +85,12 @@ function AdminReassignUser() {
               </option>
             ))}
           </select>
-          <button className={styles.button} onClick={handleReassignUser}>Reassign Role</button>
+          <button className={styles.button} onClick={handleSubmit}>Reassign Role</button>
         </div>
       </div>
+      {isPopupVisible && (
+        <PopupCard message={message} onOKClick={closePopup} />
+      )}
     </div>
   );
 }

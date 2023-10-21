@@ -3,17 +3,41 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './../../../app/styles/Admin/RegisterUser/RegisterUser.module.css';
+import PopupCard from './popupcard';
 
 function AdminRegisterUser() {
   const [name, setName] = useState('');
   const [role, setRole] = useState('user');
-
+  const [key, setKey] = useState('');
+  const [message, setMessage] = useState(''); 
+  const [showPopup, setShowPopup] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // State to control pop-up visibility 
   const roles = ['user', 'supplier', 'manufacturer', 'distributor', 'retailer'];
 
-  const handleAddUser = () => {
-    // Implement your logic to add a new user with the given name and role
-    console.log(`Adding user: ${name} with role: ${role}`);
+  const handleSubmit = async () => {
+    const response = await fetch('/api/add-data', {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({ name, key, role }),
+    });
+    if (response.ok) {
+      setMessage('User added successfully'); // Update the message
+    } else {
+      setMessage('Failed to add user'); // Update the message
+    }setIsPopupVisible(true);
+    setShowPopup(true);
+   };
+   const handleOKClick = () => {
+    // Hide the pop-up
+    setShowPopup(false);
+
+    // Reload the page
+    window.location.reload();
   };
+  const closePopup = () => {
+    // Close the pop-up when the "OK" button is clicked
+    setIsPopupVisible(false);
+  }
 
   return (
     <div className={styles.container}>
@@ -56,11 +80,27 @@ function AdminRegisterUser() {
               </option>
             ))}
           </select>
-          <button className={styles.button} onClick={handleAddUser}>Add User</button>
+          <label htmlFor="key">Key:</label>
+          <input
+            type="text"
+            id="key"
+            value={key}
+            className={styles.input}
+            onChange={(e) => setKey(e.target.value)}
+          /><button className={styles.button} type="button" onClick={handleSubmit}>
+          Add User
+         </button>
+         
         </div>
       </div>
+      {isPopupVisible && (
+        <PopupCard message={message} onOKClick={closePopup} />
+      )}
     </div>
+    
   );
 }
 
 export default AdminRegisterUser;
+
+

@@ -27,7 +27,7 @@
     }
   },
   "schema": "tsconfig.schema.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts","src/**/*.ts", "src/**/*.d.ts", "types/index.d.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts","src/**/*.ts", "src/**/*.d.ts", "types/index.d.ts", "src/app/api/insert-data.js"],
   
   "exclude": ["node_modules"]
 }
