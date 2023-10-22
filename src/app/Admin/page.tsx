@@ -32,7 +32,7 @@ function AdminDashboard() {
      if (response.status === 200) {
       
     } else {
-      setMessage('You donot have access to specified actions'); // Update the message
+      setMessage('You do not have the necessary role to access these actions.'); // Update the message
       setIsOverlayVisible(true);
     }
   }

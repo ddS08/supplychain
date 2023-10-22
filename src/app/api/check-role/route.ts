@@ -13,7 +13,6 @@ export async function POST(request: Request) {
       message = 'Name and key required';
     } else {
       // Attempt to insert data into the database
-      console.log("asdbadj");
       const nameResult = await sql`SELECT Role from roles WHERE Key=${Key};`;
       if (nameResult.rows.length > 0) {
         try {
