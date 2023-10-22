@@ -59,6 +59,7 @@ setIsPopupVisible(true);
         </nav>
       </header>
       <div className={styles["distributor-page"]}>
+      {isOverlayVisible && <div className={styles['overlay']} />}
         <h1 className={styles.h1}>Distributor Dashboard</h1>
         <div className={styles['function-cards']}>
           <Link href="/Distributor/scanqr">

@@ -6,6 +6,8 @@ import styles from '../styles/Supplier/dashboard.module.css';
 import { getPublicKeyFromMetaMask } from '../backend/ethaddressreceiver';
 import PopupCard from '../components/popupcard/popupcard';
 
+
+
 function SupplierPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState('');
@@ -73,6 +75,12 @@ setIsPopupVisible(true);
             <div className={styles['function-card']}>
               <h2>Sold Raw Materials</h2>
               <p>View sold raw materials</p>
+            </div>
+          </Link>
+          <Link href="/Supplier/GenerateQR"> {/* Add a new card for QR code generation */}
+            <div className={styles['function-card']}>
+              <h2>Generate QR</h2>
+              <p>Generate QR codes for raw materials</p>
             </div>
           </Link>
         </div>

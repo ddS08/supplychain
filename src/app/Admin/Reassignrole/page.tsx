@@ -15,7 +15,7 @@ function AdminReassignUser() {
    
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const roles = ['User', 'Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
+  const roles = ['Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
 
   const handleSubmit = async () => {
     const response = await fetch('/api/reassign-role', {

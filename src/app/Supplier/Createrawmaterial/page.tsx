@@ -6,14 +6,43 @@ import styles from './../../styles/Supplier/createrawmaterial/createrawmaterial.
 function CreateRawMaterialPage() {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
-    const [isQuantityValid, setIsQuantityValid] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isQuantityValid, setIsQuantityValid] = useState(true);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [scannedMedicine, setScannedMedicine] = useState<null | { name: string }>({ name: "" });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleCreateMaterial = () => {
     // Implement your logic to create a raw material
     console.log(`Creating material: Name - ${name}, Quantity - ${quantity}`);
+    setIsPopupVisible(false);
   };
 
-  const handleQuantityChange = (e:any) => {
+  const handleScan = (qrCode: string) => {
+    // Simulating scanned data for demonstration
+    console.log("qrcode,",qrCode);
+    const imageInput = document.getElementById('#imageInput');
+
+    const scannedData = {
+      name: "Sample Medicine",
+    };
+    setScannedMedicine(scannedData);
+    setShowPopup(true);
+  }
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
+  };
+
+  const handleQuantityChange = (e: any) => {
     const inputValue = e.target.value;
     const isValid = /^\d+$/.test(inputValue);
     setIsQuantityValid(isValid);
@@ -39,35 +68,70 @@ function CreateRawMaterialPage() {
       </header>
       <div className={styles['supplier-page']}>
         <h1 className={styles.h1}>Create Raw Material</h1>
-        <div className={styles['input-fields']}>
-          <label htmlFor="name" className={styles.label}>
+        <div className={styles["scan-container"]}>
+          <input
+            type="text"
+            id="qrCode"
+            className={styles["input"]}
+            placeholder="Scan QR Code"
+          />
+
+          <label htmlFor="image" className={styles.label}>
+            Image:
+          </label>
+          <input
+            type="file"
+            id="image"
+            className={styles["input"]}
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+          {selectedImage && (<div>
+            <img src={selectedImage} id='SelectedImage' alt="Selected Image" className={styles["selected-image"]} />
+            <input type="image" src={selectedImage} alt="Selected Image" className={styles["selected-image-input"]} />
+            
+                     </div>)}
+
+
+          <button
+            className={styles["scan-button"]}
+            onClick={() => handleScan((document.getElementById("qrCode") as HTMLInputElement).value)}
+          >
+            Scan
+          </button>
+        </div>
+      </div>
+
+      {showPopup && scannedMedicine !== null && (
+        <div className={styles.popup}>
+          <label htmlFor="popup-name" className={styles.label}>
             Name:
           </label>
           <input
             type="text"
-            id="name"
+            id="popup-name"
             value={name}
             className={styles.input}
             onChange={(e) => setName(e.target.value)}
           />
-          <label htmlFor="quantity" className={styles.label}>
+          <label htmlFor="popup-quantity" className={styles.label}>
             Quantity:
           </label>
           <input
             type="text"
-            id="quantity"
+            id="popup-quantity"
             value={quantity}
             className={styles.input}
             onChange={handleQuantityChange}
           />
-          {!isQuantityValid && (
-            <span className={styles['input-error']}>Please enter a valid quantity</span>
-          )}
-          <button className={styles.button} onClick={handleCreateMaterial}>
-            Create Material
+          <button className={styles['sell-button']} onClick={handleCreateMaterial}>
+            Sell
+          </button>
+          <button className={styles['popup-close-button']} onClick={closePopup}>
+            Close
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }

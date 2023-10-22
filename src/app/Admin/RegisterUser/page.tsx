@@ -12,7 +12,7 @@ function AdminRegisterUser() {
   const [message, setMessage] = useState(''); 
   const [showPopup, setShowPopup] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false); // State to control pop-up visibility 
-  const roles = ['User', 'Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
+  const roles = ['Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
 
   const handleSubmit = async () => {
     const response = await fetch('/api/add-data', {
