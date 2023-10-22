@@ -100,3 +100,14 @@
   .function-card:hover p {
     color: gold;
   }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background to dim the content */
+    z-index: 5; /* Ensure it's above other elements */
+    pointer-events: auto; /* Prevent interaction with elements below the overlay */
+  }
