@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './../../styles/Admin/Reassignrole/Reassignrole.module.css';
-import PopupCard from './popupcard';
+import PopupCard from '../popupcard';
+
 
 function AdminReassignUser() {
 
@@ -14,7 +15,7 @@ function AdminReassignUser() {
    
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const roles = ['user', 'supplier', 'manufacturer', 'distributor', 'retailer'];
+  const roles = ['User', 'Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
 
   const handleSubmit = async () => {
     const response = await fetch('/api/reassign-role', {

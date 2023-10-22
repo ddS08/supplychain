@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../styles/Admin/Revokerole/Revokerole.module.css';
-import PopupCard from './popupcard';
+import PopupCard from '../popupcard';
+
 
 function RevokeRole() {
   const [key, setkey] = useState('');
@@ -12,6 +13,7 @@ function RevokeRole() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleRevokeRole = async() => {
+    
     const response = await fetch('/api/revoke-role', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

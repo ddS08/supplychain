@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './../../../app/styles/Admin/RegisterUser/RegisterUser.module.css';
-import PopupCard from './popupcard';
+import PopupCard from '../popupcard';
 
 function AdminRegisterUser() {
   const [name, setName] = useState('');
@@ -12,7 +12,7 @@ function AdminRegisterUser() {
   const [message, setMessage] = useState(''); 
   const [showPopup, setShowPopup] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false); // State to control pop-up visibility 
-  const roles = ['user', 'supplier', 'manufacturer', 'distributor', 'retailer'];
+  const roles = ['User', 'Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
 
   const handleSubmit = async () => {
     const response = await fetch('/api/add-data', {

@@ -4,6 +4,7 @@
   import Web3 from 'web3';
   import styles from './styles/home.module.css';
   import Head from 'next/head';
+import { getPublicKeyFromMetaMask } from './backend/ethaddressreceiver';
 
 
   export default function Home() {
@@ -42,7 +43,9 @@
         } catch (error) {
           console.error('Error connecting to MetaMask:', error);
         }
+        
       }
+
     };
     
     return (

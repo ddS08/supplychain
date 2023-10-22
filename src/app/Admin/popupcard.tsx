@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './popupcard.module.css'; // Import the CSS module
+import Link from 'next/link';
 
 interface PopupCardProps {
   message: string;
@@ -11,9 +12,9 @@ function PopupCard({ message, onOKClick }: PopupCardProps) {
     <div className={styles.popupCard}> {/* Use the CSS module class */}
       <div className={styles.popupContent}> {/* Use the CSS module class */}
         <p>{message}</p>
-        <button onClick={onOKClick} className={styles.okButton}> {/* Use the CSS module class */}
+        <Link href="/Admin"><button onClick={onOKClick} className={styles.okButton}> {/* Use the CSS module class */}
           OK
-        </button>
+        </button></Link>
       </div>
     </div>
   );
