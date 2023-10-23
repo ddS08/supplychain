@@ -112,7 +112,6 @@ function GenerateQR() {
                 </button>
 
 
-
               <button onClick={() => setIsPopupVisible(false)}>Close</button>
             </div>
           </div>

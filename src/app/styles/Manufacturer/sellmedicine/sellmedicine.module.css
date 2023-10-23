@@ -76,7 +76,10 @@
     color: gold;
     text-align: center;
     width: 400px;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 35px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     margin: 0 auto;
     position: relative;
 }
@@ -100,15 +103,6 @@
     color: gold;
 }
 
-.input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid gold;
-    border-radius: 5px;
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Example elegant font */
-    color: black;
-}
-
 .sell-button {
     background-color: gold;
     color: black;
@@ -125,3 +119,152 @@
     color: gold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.qr-generator {
+    text-align: center;
+  }
+  
+  .generate-button {
+    margin-top: 20px;
+    background-color: gold;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .generate-button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .qr {
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: gold;
+    color:black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .popup-buttons {
+    margin-top: 20px;
+  }
+  
+  .popup-buttons button {
+    background-color: gold;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .input-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .label {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .input,
+  .button {
+    width: 100%;
+    padding: 10px;
+    margin:10px;
+    font-size: 16px;
+    background-color: grey;
+    color: gold;
+  }
+  
+  .button {
+    background-color: gold;
+    color:black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .scan-container {
+    display: block;
+    align-items: center;
+}
+
+
+
+.scan-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.scan-button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 40px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    color: gold;
+    text-align: center;
+    z-index: 999;
+    font-size: 18px; /* Increased font size for all text in the card */
+}
+  .popup-buttons button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }

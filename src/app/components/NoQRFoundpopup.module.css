@@ -1,0 +1,42 @@
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 40px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    color: gold;
+    text-align: center;
+    z-index: 999;
+    font-size: 18px; /* Increased font size for all text in the card */
+}
+  
+  .popup-message {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .close-button {
+    cursor: pointer;
+  }
+
+  .popup-close-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 18px; /* Increased font size for the close button */
+  }
+  
+  .popup-close-button:hover {
+    background-color: black;
+    color: gold;
+  }
+  
