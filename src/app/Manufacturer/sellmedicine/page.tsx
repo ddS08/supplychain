@@ -11,7 +11,11 @@ function getTomorrow() {
     tomorrow.setDate(today.getDate() + 1); // Add one day to today's date
     return tomorrow.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
   }
-  
+  interface Distributor {
+    key: string; // Add this property to define the type
+    Name: string;
+    // Add other properties if they exist in your data
+  }
   function getToday() {
     const today = new Date();
     return today.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
@@ -26,7 +30,9 @@ function SellMedicinePage() {
   const [qrImage, setQrImage] = useState('');
   const [rawmaterial, setRawMaterial] = useState('');
   const [pop2,setpop2]= useState(false);
+  const [pop3,setpop3]= useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [distributors, setDistributors] = useState<Distributor[]>([]);
 
   useEffect(() => {
     // Generate a random and unique raw material ID
@@ -72,6 +78,7 @@ function SellMedicinePage() {
       // Access the materialId from the response
       const materialId = responseData.materialId;
       console.log('Material ID:', materialId);
+      getDistributorinfo();
       setShowPopup(true);
     } else {
       // Handle any errors here
@@ -83,6 +90,38 @@ function SellMedicinePage() {
   }
     
   };
+  const getDistributorinfo = async() =>{
+    try {
+    const role = 'Distributor';
+
+    const response = await fetch('/api/getretdis', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+      body: JSON.stringify({role}),
+    });
+
+    if (response.status === 200) {
+      // Request was successful, you can handle success here
+      const responseData = await response.json();
+      console.log('QR Code found successfully:', responseData);
+      const rows = responseData.rows;
+      setDistributors(rows);
+      console.log('Rows:', rows);
+      // Access the materialId from the response
+
+    } else {
+      // Handle any errors here
+      console.error('Error inserting QR Code.');
+      setpop3(true);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+    
   const handleGenerateQR = (event:any) => {
     event.preventDefault();
     const newRawMaterialId = generateRandomId();
@@ -258,10 +297,12 @@ function SellMedicinePage() {
                 Distributor:
               </label>
               <select id="distributor" className={styles['input']}>
-                <option value="distributor1">Distributor 1</option>
-                <option value="distributor2">Distributor 2</option>
-                <option value="distributor3">Distributor 3</option>
-              </select>
+                  {distributors.map((distributor, index) => (
+                    <option key={distributor.key} value={distributor.Name}>
+                      {distributor.Name}
+                    </option>
+                  ))}
+                </select>
             </div>
             <div className={styles['input-field']}>
               <label htmlFor="medicineImage" className={styles['input-label']}>
@@ -315,6 +356,7 @@ function SellMedicinePage() {
         </div>
       )}
       {pop2 && <NoQRFoundpopup onClose={() => setpop2(false)} message="No such QR found."/>}
+      {pop3 && <NoQRFoundpopup onClose={() => setpop3(false)} message="No distributors found."/>}
     </div>
 
   );
