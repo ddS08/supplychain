@@ -125,29 +125,7 @@ const handleImageInputChange = (event: any) => {
   }
 };
 
-const insertQRCode = async (rawMaterialId: string, qrImage: string) => {
-  try {
-      console.log("Qr:",qrImage);
-      console.log("rawmaterial",rawMaterialId);
-    const response = await fetch('/api/insert-qr-code', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rawMaterialId, qrImage }),
-    });
 
-    if (response.status === 200) {
-      // Request was successful, you can handle success here
-      console.log('QR Code inserted successfully.');
-    } else {
-      // Handle any errors here
-      console.error('Error inserting QR Code.');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
   // Function to close the popup
   const closePopup = () => {
     setShowPopup(false);

@@ -1,6 +1,4 @@
-/* sellitem.module.css */
-
-/* Container styles */
+/* selltoretailer.module.css */
 .container {
   display: flex;
   flex-direction: column;
@@ -54,10 +52,9 @@
   color: white;
 }
 
-/* Sell Item page styles */
-.sell-item-page {
+.sell-to-retailer-page {
   text-align: center;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Example elegant font */
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
 }
 
 .h1 {
@@ -65,12 +62,12 @@
   margin-bottom: 20px;
   color: gold;
   font-weight: normal;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Example elegant font */
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
 }
 
 /* Scan Container styles */
 .scan-container {
-  display: flex;
+  display: flexbox;
   align-items: center;
 }
 
@@ -79,8 +76,10 @@
   padding: 10px;
   border: 1px solid gold;
   border-radius: 5px;
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Example elegant font */
-  color: black;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  color: gold;
+  margin-top: 10px;
+  margin-bottom: 10px;;
   margin-right: 10px;
 }
 
@@ -114,18 +113,22 @@
   color: gold;
   text-align: center;
   z-index: 999;
+  font-size: 18px; /* Increased font size for all text in the card */
 }
 
-.cost-input {
+.retailer-dropdown {
+  margin-top: 20px;
+}
+
+.dropdown {
   width: 100%;
   padding: 10px;
   border: 1px solid gold;
   border-radius: 5px;
   font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
   color: black;
-  margin-bottom: 10px;
+  font-size: 16px; /* Increased font size for dropdown */
 }
-
 
 .sell-button {
   background-color: gold;
@@ -136,7 +139,14 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  margin-right: 10px; /* Add margin to separate the buttons */
+  margin-top: 20px;
+  margin-right: 10px; /* Added margin between buttons */
+  font-size: 18px; /* Increased font size for the buttons */
+}
+
+.sell-button:hover {
+  background-color: black;
+  color: gold;
 }
 
 .popup-close-button {
@@ -149,15 +159,66 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 18px; /* Increased font size for the close button */
 }
-
-.sell-button:hover {
-  background-color: black;
-  color: gold;
-}
-
 
 .popup-close-button:hover {
   background-color: black;
   color: gold;
+}
+
+.rawmaterial-image {
+  margin-left: 20px;
+  width: 100px;
+}
+.selected-image{
+  width:256px;
+  margin-left: 160px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height:256px;
+}
+.scan-button {
+  background-color: gold;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.scan-button:hover {
+  background-color: black;
+  color: gold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.cost-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid gold;
+  border-radius: 5px;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  color: black;
+  margin-bottom: 10px;
+}
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  padding: 40px;
+  border: 2px solid gold;
+  border-radius: 10px;
+  color: gold;
+  text-align: center;
+  z-index: 999;
+  font-size: 18px; /* Increased font size for all text in the card */
+}
+.popup-buttons button:hover {
+  background-color: black;
+  color: gold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

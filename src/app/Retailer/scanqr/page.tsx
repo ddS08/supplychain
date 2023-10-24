@@ -3,9 +3,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./../../styles/distributor/scanqr/scanqr.module.css" 
+import NoQRFoundpopup from "@/app/components/NoQRFoundpopup";
 
 function ScanQRPage() {
   const [showPopup, setShowPopup] = useState(false);
+  const [isQuantityValid, setIsQuantityValid] = useState(true);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [scannedMedicine, setScannedMedicine] = useState<null | { name: string }>({ name: '' });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [imageBuffer, setImageBuffer] = useState('');
+  const [rawmaterial, setRawMaterial] = useState('');
+  const [pop2,setpop2]= useState(false);
   const [scannedQRData, setScannedQRData] = useState<null | { image: string; medicine: string; manufacturer: string; manufacturingDate: string;DistributorName: string; expiryDate: string; }>({ 
     image: "", 
     medicine: "", 
@@ -14,21 +22,78 @@ function ScanQRPage() {
     DistributorName:"", 
     expiryDate: "" 
   });
+  const scannedData = {
+    image: "medicine1.jpg",
+    medicine: "Medicine X",
+    manufacturer: "Manufacturer A",
+    manufacturingDate: "2023-09-15",
+    DistributorName:"Distributor 1",
+    expiryDate: "2024-09-15",
+  };
 
-  // Function to handle scanning QR code (you can implement your scanning logic here)
-  const handleScan = (qrCode: string) => {
+  const handleImageInputChange = (event: any) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          let base64String = e.target.result as string;
+          if (base64String.startsWith('data:image/png;base64,')) {
+            base64String = base64String.slice('data:image/png;base64,'.length);
+          }
+          setImageBuffer(base64String);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  const handleRawMaterial = () => {
+    const qrCodeInput = document.getElementById('qrC') as HTMLInputElement;
+    console.log(qrCodeInput);
+    if (qrCodeInput && qrCodeInput.value) {
+      console.log(qrCodeInput.value);
+      setRawMaterial(qrCodeInput.value);
+    }
+    handleScan(qrCodeInput.value);
+  };
+
+  const handleScan = async (rawmaterialval:string) => {
     // Simulating scanned data for demonstration
-    const scannedData = {
-      image: "medicine1.jpg",
-      medicine: "Medicine X",
-      manufacturer: "Manufacturer A",
-      manufacturingDate: "2023-09-15",
-      DistributorName:"Distributor 1",
-      expiryDate: "2024-09-15",
-    };
+    try {
+      console.log('QR Code:', rawmaterialval);
+      console.log('Image:', imageBuffer);
+  
+    const response = await fetch('/api/check-qr-info', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rawmaterialval, imageBuffer }),
+    });
 
-    setScannedQRData(scannedData);
-    setShowPopup(true);
+    if (response.status === 200) {
+      // Request was successful, you can handle success here
+      const responseData = await response.json();
+      console.log('QR Code found successfully:', responseData);
+
+      // Access the materialId from the response
+      const materialId = responseData.materialId;
+      console.log('Material ID:', materialId);
+      setShowPopup(true);
+    } else {
+      // Handle any errors here
+      console.error('Error inserting QR Code.');
+      setpop2(true);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+    
   };
 
   // Function to close the popup
@@ -55,17 +120,31 @@ function ScanQRPage() {
       </header>
       <div className={styles["scan-qr-page"]}>
         <h1 className={styles.h1}>Scan QR Code</h1>
-        <div className={styles["scan-container"]}>
+        <div className={styles['scan-container']}>
           <input
             type="text"
-            id="qrCode"
-            className={styles["input"]}
+            id="qrC"
+            className={styles['input']}
             placeholder="Scan QR Code"
           />
-          <button
-            className={styles["scan-button"]}
-            onClick={() => handleScan((document.getElementById("qrCode") as HTMLInputElement).value)}
-          >
+
+          <label htmlFor="image" className={styles.label}>
+            Image:
+          </label>
+          <input
+            type="file"
+            id="image"
+            className={styles['input']}
+            accept="image/*"
+            onChange={handleImageInputChange}
+          />
+          {selectedImage && (
+            <div>
+              <img src={selectedImage} alt="Selected Image" className={styles['selected-image']} />
+            </div>
+          )}
+
+          <button className={styles['scan-button']} onClick={handleRawMaterial}>
             Scan
           </button>
         </div>
@@ -82,7 +161,9 @@ function ScanQRPage() {
             Close
           </button>
         </div>
+        
       )}
+       {pop2 && <NoQRFoundpopup onClose={() => setpop2(false)} message="No such QR found."/>}
     </div>
   );
 }
