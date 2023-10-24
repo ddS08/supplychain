@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import styles from '../../styles/user/Register/Register.module.css';
 import Link from 'next/link';
 import Navbar from '../Navbar';
+import NoQRFoundpopup from '@/app/components/NoQRFoundpopup';
+import { useRouter } from 'next/navigation';
 
 const Register: React.FC = () => {
   // Initialize state for form data and error messages
@@ -22,7 +24,8 @@ const Register: React.FC = () => {
     confirmPassword: '',
     ethereumAddress: '',
   });
-
+  const [pop2,setpop2]= useState(false);
+  const [pop3,setpop3]= useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -36,10 +39,11 @@ const Register: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Add your registration logic here
     console.log('Form submitted with data:', formData);
+    
 
     // Example: Validate the form fields (you can add more complex validation)
     const newErrors = {} as any;
@@ -68,6 +72,33 @@ const Register: React.FC = () => {
       // No errors, proceed with registration
       // Add your registration logic here
     }
+    const response = await fetch('/api/registeruser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    console.log("erso",response.status);
+
+    if (response.status === 200) {
+      // Registration was successful
+      console.log('Registration successful:');
+      setpop2(true);
+      // You can perform additional actions, e.g., redirect to a success page.
+    } else {
+      // Registration failed
+      console.error('Registration failed:');
+      setpop3(true);
+      // Handle the registration failure, e.g., display an error message.
+    }
+  }
+
+  const router = useRouter();
+
+  const onClos = () => {
+    // Navigate to "/user" location
+    router.push('/user');
   };
 
   return (
@@ -159,6 +190,8 @@ const Register: React.FC = () => {
         </form>
       </div>
     </div>
+    {pop2 && <NoQRFoundpopup onClose={onClos} message="User Registered Successfully"/>}
+    {pop3 && <NoQRFoundpopup onClose={() => setpop3(false)} message="Registration failed, try using different username/email/ethereumaddress"/>}
     </div>
   );
 };

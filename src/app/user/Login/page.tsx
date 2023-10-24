@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import styles from '../../styles/user/Login/login.module.css';
 import Link from 'next/link';
 import Navbar from '../Navbar';
+import NoQRFoundpopup from '@/app/components/NoQRFoundpopup';
+import { useRouter } from 'next/navigation';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,11 +19,35 @@ const Login: React.FC = () => {
       [name]: value,
     });
   };
+  const [pop2,setpop2]= useState(false);
+  const [pop3,setpop3]= useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      // Make a POST request to the login API
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+    
+      if (response.status === 200) {
+        // Login was successful
+        console.log('Login successful');
+        setpop2(true);
+      } else {
+        // Login failed
+        console.error('Login failed');
+        setpop3(true);
+      }
+    
+  };
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log('Form submitted with data:', formData);
+  const onClos = () => {
+    // Navigate to "/user" location
+    router.push('/user');
   };
 
   return (
@@ -66,6 +92,8 @@ const Login: React.FC = () => {
         </form>
       </div>
     </div>
+    {pop2 && <NoQRFoundpopup  onClose={onClos} message="Login Successful"/>}
+    {pop3 && <NoQRFoundpopup onClose={() => setpop3(false)} message="Login Failed"/>}
     </div>
   );
 };
