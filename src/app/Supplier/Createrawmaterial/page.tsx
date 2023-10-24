@@ -72,6 +72,11 @@ function CreateRawMaterialPage() {
 
   const handleImageInputChange = (event: any) => {
     const file = event.target.files[0];
+    const files = event.target.files && event.target.files[0];
+    if (files) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
 
     if (file) {
       const reader = new FileReader();

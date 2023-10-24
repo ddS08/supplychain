@@ -10,7 +10,45 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-  
+  .scan-container {
+    display: block;
+    align-items: center;
+}
+.label {
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    color: gold;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+
+.scan-button {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.scan-button:hover {
+    background-color: black;
+    color: gold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
   /* Header styles */
   .header {
     background-color: black;
@@ -66,37 +104,6 @@
   }
   
   /* Scan Container styles */
-  .scan-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid gold;
-    border-radius: 5px;
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Example elegant font */
-    color: black;
-    margin-right: 10px; /* Add margin to separate input and button */
-  }
-  
-  .scan-button {
-    background-color: gold;
-    color: black;
-    font-weight: bold;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .scan-button:hover {
-    background-color: black;
-    color: gold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
   
   /* Popup styles */
   .popup {

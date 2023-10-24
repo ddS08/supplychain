@@ -86,7 +86,7 @@ setIsPopupVisible(true);
       </div>
       {isPopupVisible && message &&  (
         <PopupCard message={message} />
-      )};
+      )}
     </div>
   );
 }

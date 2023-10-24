@@ -92,6 +92,12 @@ function SellMedicinePage() {
   };
   const handleImageInputChange = (event: any) => {
     const file = event.target.files[0];
+    const files = event.target.files && event.target.files[0];
+    if (files) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
+
 
     if (file) {
       const reader = new FileReader();
@@ -151,6 +157,8 @@ function SellMedicinePage() {
         </nav>
       </header>
       <div className={styles['sell-medicine-page']}>
+      {(!showPopup && 
+      <div>
         <h1 className={styles.h1}>Sell Medicine</h1>
         <div className={styles['scan-container']}>
           <input
@@ -180,6 +188,8 @@ function SellMedicinePage() {
             Scan
           </button>
         </div>
+      </div>
+      )}
       </div>
 
       {showPopup && (

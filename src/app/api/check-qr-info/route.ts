@@ -34,6 +34,9 @@ export async function POST(request: Request) {
                 message = 'No user found with the provided Key';
             }
         }
+        else{
+          message='No user found with the provided Key';
+        }
     }
   } catch (error) {
     console.log('error', error);

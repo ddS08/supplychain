@@ -12,7 +12,13 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-
+.selected-image{
+  width:256px;
+  margin-left: 160px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height:256px;
+}
 /* Header styles */
 .header {
     background-color: black;
@@ -60,7 +66,16 @@
     padding-top: 30px;
     font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; /* Example elegant font */
 }
-
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background to dim the content */
+  z-index: 5; /* Ensure it's above other elements */
+  pointer-events: auto; /* Prevent interaction with elements below the overlay */
+}
 .h1 {
     font-size: 36px;
     margin-bottom: 20px;
@@ -80,7 +95,7 @@
     padding-right: 35px;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin: 0 auto;
+    margin-top: 100px;
     position: relative;
 }
 
