@@ -53,7 +53,9 @@ function CreateRawMaterialPage() {
 
       // Access the materialId from the response
       const materialId = responseData.materialId;
+      const id=responseData.id;
       console.log('Material ID:', materialId);
+      console.log("id",id);
       setShowPopup(true);
     } else {
       // Handle any errors here

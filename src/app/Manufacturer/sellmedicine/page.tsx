@@ -77,7 +77,9 @@ function SellMedicinePage() {
 
       // Access the materialId from the response
       const materialId = responseData.materialId;
+      const id=responseData.id;
       console.log('Material ID:', materialId);
+      console.log("id",id);
       getDistributorinfo();
       setShowPopup(true);
     } else {

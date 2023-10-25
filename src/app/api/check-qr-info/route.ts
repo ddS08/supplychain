@@ -8,6 +8,7 @@ export async function POST(request: Request) {
   const imageBuffer = data['imageBuffer'];
   let message = '';
   let materialId = null;
+  let id = null;
 
   try {
     if (!rawmat && !imageBuffer) {
@@ -16,9 +17,10 @@ export async function POST(request: Request) {
         if(!rawmat)
         {
             console.log("asdajsdkasdas");
-            const nameResult = await sql`SELECT materialid from qrcodes where qrimage=${imageBuffer};`;
+            const nameResult = await sql`SELECT * from qrcodes where qrimage=${imageBuffer};`;
             if (nameResult.rows.length > 0) {
                 materialId = nameResult.rows[0].materialid;
+                id= nameResult.rows[0].id
                 message = 'Material ID found';
                 console.log(materialId);
             } else {
@@ -30,6 +32,7 @@ export async function POST(request: Request) {
             const nameResult = await sql`SELECT * from qrcodes WHERE materialid=${rawmat};`;
             if (nameResult.rows.length > 0) {
                 message = "User found";
+                id= nameResult.rows[0].id
             } else {
                 message = 'No user found with the provided Key';
             }
@@ -47,7 +50,8 @@ export async function POST(request: Request) {
   // Include materialId in the JSON response
   const responseObj = {
     message,
-    materialId
+    materialId,
+    id,
   };
 
   // Return a JSON response with the "message" and "materialId"
