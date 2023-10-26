@@ -5,6 +5,7 @@ import styles from '../../app/styles/Admin/dashboard.module.css';
 import React, { useEffect, useState } from 'react';
 import { getPublicKeyFromMetaMask } from '../backend/ethaddressreceiver';
 import PopupCard from '../components/popupcard/popupcard';
+import { MANctr, RMSctr } from '../contracts/connect';
 
 
 

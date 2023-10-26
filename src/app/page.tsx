@@ -4,12 +4,17 @@
   import Web3 from 'web3';
   import styles from './styles/home.module.css';
   import Head from 'next/head';
-import { getPublicKeyFromMetaMask } from './backend/ethaddressreceiver';
 
 
+  import { DISctr, MANctr, RETctr, RMSctr} from './contracts/connect'; // Adjust the path to the contract file
+
+  // Use the getContractInstance function as needed
+ 
   export default function Home() {
     const [flippedCard, setFlippedCard] = useState(null);
     const [web3, setWeb3] = useState<Web3 | null>(null);
+    
+    
 
     const handleCardClick = (index: any) => {
       setFlippedCard(flippedCard === index ? null : index);
@@ -40,6 +45,7 @@ import { getPublicKeyFromMetaMask } from './backend/ethaddressreceiver';
           // Use MetaMask provider
           const web3Instance = new Web3(window.ethereum);
           setWeb3(web3Instance);
+          const val = RETctr();
         } catch (error) {
           console.error('Error connecting to MetaMask:', error);
         }
@@ -92,7 +98,7 @@ import { getPublicKeyFromMetaMask } from './backend/ethaddressreceiver';
           {web3 ? (
             <div>
               <section className={styles.hero}>
-                <h1>Welcome to PharmaChain DApp</h1>
+                <h1>Welcome to PharmaChain DApp  </h1>
                 <p>Revolutionizing Pharmaceutical Supply Chains</p>
                 <button className={styles['cta-button']}>Get Started</button>
               </section>

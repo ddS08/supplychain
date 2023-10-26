@@ -4,16 +4,17 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './../../../app/styles/Admin/RegisterUser/RegisterUser.module.css';
 import PopupCard from '../popupcard';
+import { addDIS, addMAN, addRET, addRMS } from '@/app/contracts/connect';
+import { getPublicKeyFromMetaMask } from '@/app/backend/ethaddressreceiver';
 
 function AdminRegisterUser() {
   const [name, setName] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('Supplier');
   const [key, setKey] = useState('');
   const [message, setMessage] = useState(''); 
   const [showPopup, setShowPopup] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false); // State to control pop-up visibility 
   const roles = ['Supplier', 'Manufacturer', 'Distributor', 'Retailer'];
-
   const handleSubmit = async () => {
     const response = await fetch('/api/add-data', {
        method: 'POST',
@@ -22,6 +23,24 @@ function AdminRegisterUser() {
     });
     if (response.ok) {
       setMessage('User added successfully'); // Update the message
+      const publicKey =await getPublicKeyFromMetaMask();
+      console.log("publickey",publicKey);
+      
+      if(role === 'Supplier')
+      {
+        await addRMS(key,name,publicKey);
+      }
+      else if(role === 'Manufacturer')
+      {
+        await addMAN(key,name,publicKey);
+      }
+      else if (role === 'Distributor')
+      {
+        await addDIS(key,name,publicKey);
+      }
+      else{
+        await addRET(key,name,publicKey);
+      }
     } else {
       setMessage('Failed to add user'); // Update the message
     }setIsPopupVisible(true);
@@ -102,5 +121,7 @@ function AdminRegisterUser() {
 }
 
 export default AdminRegisterUser;
+
+
 
 
