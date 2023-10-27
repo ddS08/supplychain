@@ -4,9 +4,20 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./../../styles/Manufacturer/scanrawmaterial/scanrawmaterial.module.css";
 import NoQRFoundpopup from "@/app/components/NoQRFoundpopup";
+interface ProductData {
+  name: string;
+  supplier_name: string;
+  image: string;
+  id:number;
+  supplier_eth_address:string;
+  quantity:string;
+  // Add any other properties you expect in the 'productData' object
+}
+
 
 function ScanRawMaterialPage() {
   const [showPopup, setShowPopup] = useState(false);
+  const [productData, setProductData] = useState<ProductData | null>(null); // Initialize productData state
   const [isQuantityValid, setIsQuantityValid] = useState(true);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [scannedMedicine, setScannedMedicine] = useState<null | { name: string }>({ name: '' });
@@ -63,16 +74,42 @@ function ScanRawMaterialPage() {
     if (response.status === 200) {
       // Request was successful, you can handle success here
       const responseData = await response.json();
+      setShowPopup(true);
       console.log('QR Code found successfully:', responseData);
 
       // Access the materialId from the response
       const materialId = responseData.materialId;
-      console.log('Material ID:', materialId);
-      setShowPopup(true);
+      const id = responseData.id;
+      console.log('Material ID:',id, materialId);
+      try {
+        const response = await fetch('/api/manscan', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id }), // Send the id in the request body
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Product data:', data.productData);
+          setProductData(data.productData);
+          console.log(productData);
+    
+          // Handle the product data as needed
+          // You can access the product data using data.productData
+        } else {
+          // Handle the case where the request was not successful
+          console.error('Failed to retrieve product data');
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    
     } else {
       // Handle any errors here
       console.error('Error inserting QR Code.');
-      setpop2(true);
+
     }
   } catch (error) {
     console.error('Error:', error);
@@ -133,16 +170,21 @@ function ScanRawMaterialPage() {
           </button>
         </div>
       </div>
-      {showPopup  && (
-        <div className={styles.popup}>
-          <img src="" alt="Raw Material" className={styles['rawmaterial-image']} />
-          <p>Supplier:</p>
-          <button className={styles["popup-close-button"]} onClick={closePopup}>
-            Close
-          </button>
-        </div>
-      )}
-      {pop2 && <NoQRFoundpopup onClose={() => setpop2(false)} message="No such QR found."/>}
+    {showPopup && productData &&(
+  <div className={styles.popup}>
+    <img
+      src={`/rawmaterial1.jpg`} // Use the correct property for the image
+      alt={productData.name}
+      className={styles['rawmaterial-image']}
+    />
+    <p>Name: {productData.name}</p>
+    <p>Supplier: {productData.supplier_name}</p>
+    <button className={styles["popup-close-button"]} onClick={closePopup}>
+      Close
+    </button>
+  </div>
+)}
+ {pop2 && <NoQRFoundpopup onClose={() => setpop2(false)} message="No such QR found."/>}
     </div>
   );
 }

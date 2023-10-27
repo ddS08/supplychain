@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './../../styles/Supplier/createrawmaterial/createrawmaterial.module.css';
 import NoQRFoundpopup from '@/app/components/NoQRFoundpopup';
+import { getPublicKeyFromMetaMask } from '@/app/backend/ethaddressreceiver';
 
 function CreateRawMaterialPage() {
+
   const [name, setName] = useState('');
+  const [id, setid] = useState('');
   const [quantity, setQuantity] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [isQuantityValid, setIsQuantityValid] = useState(true);
@@ -16,10 +19,31 @@ function CreateRawMaterialPage() {
   const [rawmaterial, setRawMaterial] = useState('');
   const [pop2,setpop2]= useState(false);
 
-  const handleCreateMaterial = () => {
+  const handleCreateMaterial = async () => {
     // Implement your logic to create a raw material
-    console.log(`Creating material: Name - ${name}, Quantity - ${quantity}`);
-    setIsPopupVisible(false);
+    try {
+    console.log(id,name,quantity);
+    const publickey = await getPublicKeyFromMetaMask();
+    const response = await fetch('/api/sell-raw', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id,name,quantity,publickey }),
+    });
+    if (response.status === 200) {
+      // Request was successful, you can handle success here
+      const responseData = await response.json();
+      console.log('QR Code found successfully:', responseData);
+      setIsPopupVisible(false);
+    } else {
+      // Handle any errors here
+      console.error('Error inserting QR Code.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+    
   };
 
   const handleRawMaterial = () => {
@@ -53,7 +77,7 @@ function CreateRawMaterialPage() {
 
       // Access the materialId from the response
       const materialId = responseData.materialId;
-      const id=responseData.id;
+      setid(responseData.id);
       console.log('Material ID:', materialId);
       console.log("id",id);
       setShowPopup(true);

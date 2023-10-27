@@ -5,6 +5,9 @@ import Link from "next/link";
 import styles from "./../../styles/Manufacturer/sellmedicine/sellmedicine.module.css";
 import QRCode from "qrcode.react";
 import NoQRFoundpopup from "@/app/components/NoQRFoundpopup";
+import DistributorPage from "@/app/Distributor/page";
+import { medblock } from "@/app/contracts/connect";
+import { getPublicKeyFromMetaMask } from "@/app/backend/ethaddressreceiver";
 function getTomorrow() {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -16,23 +19,37 @@ function getTomorrow() {
     Name: string;
     // Add other properties if they exist in your data
   }
+  interface ProductData {
+    name: string;
+    supplier_name: string;
+    image: string;
+    id:number;
+    supplier_eth_address:string;
+    quantity:string;
+    // Add any other properties you expect in the 'productData' object
+  }
   function getToday() {
     const today = new Date();
     return today.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
   }
   
 function SellMedicinePage() {
+  const [publickey,setpublickey] = useState('');
   const [imageBuffer, setImageBuffer] = useState('');
+  const [productData, setProductData] = useState<ProductData | null>(null); // Initialize productData state
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [rawMaterialId, setRawMaterialId] = useState('');
   const [isQRVisible, setIsQRVisible] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedDistributorKey, setSelectedDistributorKey] = useState('');
   const [qrImage, setQrImage] = useState('');
   const [rawmaterial, setRawMaterial] = useState('');
   const [pop2,setpop2]= useState(false);
   const [pop3,setpop3]= useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [distributors, setDistributors] = useState<Distributor[]>([]);
+  const [idval,setidval] = useState('');
+  const [publicKeyval,setpublicKeyval] = useState('');
 
   useEffect(() => {
     // Generate a random and unique raw material ID
@@ -80,6 +97,30 @@ function SellMedicinePage() {
       const id=responseData.id;
       console.log('Material ID:', materialId);
       console.log("id",id);
+      setidval(id);
+      try {
+        const response = await fetch('/api/manscan', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id }), // Send the id in the request body
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Product data:', data.productData);
+          setProductData(data.productData);
+    
+          // Handle the product data as needed
+          // You can access the product data using data.productData
+        } else {
+          // Handle the case where the request was not successful
+          console.error('Failed to retrieve product data');
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
       getDistributorinfo();
       setShowPopup(true);
     } else {
@@ -111,6 +152,7 @@ function SellMedicinePage() {
       console.log('QR Code found successfully:', responseData);
       const rows = responseData.rows;
       setDistributors(rows);
+      setSelectedDistributorKey(rows[0].Key);
       console.log('Rows:', rows);
       // Access the materialId from the response
 
@@ -179,6 +221,80 @@ function SellMedicinePage() {
     } catch (error) {
       console.error('Error:', error);
     }
+};
+const handlesellbutton = async () => {
+  try {
+    const publicKeyValue = await getPublicKeyFromMetaMask();
+    console.log("dhyan",publicKeyValue); // Access and use publicKeyValue here
+
+    // You can also set the value in state if you're in a React component
+    setpublicKeyval(publicKeyValue);
+  } catch (error) {
+    console.error('Error fetching public key:', error);
+  }
+
+
+  const medicineNameInput = document.getElementById('medicineName') as HTMLInputElement;
+  const manufacturingDateInput = document.getElementById('manufacturingDate') as HTMLInputElement;
+  const expiryDateInput = document.getElementById('expiryDate') as HTMLInputElement;
+  const tabletsPerPackInput = document.getElementById('tabletsPerPack') as HTMLInputElement;
+  const costPerPackInput = document.getElementById('costPerPack') as HTMLInputElement;
+  const distributorSelect = document.getElementById('distributor') as HTMLSelectElement;
+  const medicineName = medicineNameInput.value;
+  const manufacturingDate = manufacturingDateInput.value;
+  const expiryDate = expiryDateInput.value;
+  const tabletsPerPack = tabletsPerPackInput.value;
+  const costPerPack = costPerPackInput.value;
+  const selectedDistributor = distributorSelect.value;
+  let selecteddistkey = '';
+  try {
+    const response = await fetch('/api/getkey', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ selectedDistributor }), // Send the id in the request body
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Product data:', data.rows);
+      selecteddistkey = data.rows[0].key;
+      console.log("Asdasd",selecteddistkey);
+
+      // Handle the product data as needed
+      // You can access the product data using data.productData
+    } else {
+      // Handle the case where the request was not successful
+      console.error('Failed to retrieve product data');
+    }
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+  }
+
+  // Now you have all the values
+  console.log("supp,",productData?.supplier_eth_address);
+  console.log('Medicine Name:', medicineName);
+  console.log('Manufacturing Date:', manufacturingDate);
+  console.log('Expiry Date:', expiryDate);
+  console.log('Tablets Per Pack:', tabletsPerPack);
+  console.log('Cost Per Pack:', costPerPack);
+  console.log('Selected Distributor:', selectedDistributor);
+  console.log("pb",publicKeyval);
+  console.log('idval,',idval);
+  const numberid = parseInt(idval, 10);
+  // Convert the manufacturingDate string to a Date object
+const date = new Date(manufacturingDate);
+
+// Get the timestamp in seconds (as a uint256 value)
+const timestamp = Math.floor(date.getTime() / 1000);
+const date2 = new Date(expiryDate);
+
+// Get the timestamp in seconds (as a uint256 value)
+const timestamp2 = Math.floor(date2.getTime() / 1000);
+const val = medblock(medicineName,tabletsPerPack,costPerPack,timestamp,timestamp2,productData?.supplier_eth_address,numberid,selecteddistkey,publicKeyval);
+console.log("vas",val);
+
 };
   return (
     <div className={styles.container}>
@@ -298,9 +414,10 @@ function SellMedicinePage() {
               <label htmlFor="distributor" className={styles['input-label']}>
                 Distributor:
               </label>
-              <select id="distributor" className={styles['input']}>
+              <select id="distributor" className={styles['input']}
+              onChange={(e) => setSelectedDistributorKey(e.target.value)}>
                   {distributors.map((distributor, index) => (
-                    <option key={distributor.key} value={distributor.Name}>
+                    <option key={distributor.key} value={distributor.key}>
                       {distributor.Name}
                     </option>
                   ))}
@@ -353,7 +470,8 @@ function SellMedicinePage() {
                 </div>
               )}
             </div>
-            <button className={styles['sell-button']}>Sell Medicine</button>
+            <button type="button" className={styles['sell-button']} onClick={handlesellbutton}>Sell Medicine</button>
+
           </form>
         </div>
       )}

@@ -1,3 +1,4 @@
+import { getPublicKeyFromMetaMask } from '@/app/backend/ethaddressreceiver';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
@@ -15,6 +16,7 @@ export async function POST(request: Request) {
     } 
     else {
       // Attempt to insert data into the database;
+     
       const result = await sql`INSERT INTO qrcodes (materialid, qrimage) VALUES (${rawMaterialId},${qrImage});
       `;
       console.log('user added successfully', result);

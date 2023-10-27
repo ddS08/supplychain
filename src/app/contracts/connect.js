@@ -159,7 +159,80 @@ async function addRET(supplierAddress,supplierName,adminaddress){
 
 }
 }
-export {RMSctr,MANctr,DISctr,RETctr,addRMS,addMAN ,addDIS,addRET};
+
+async function qrblock()
+{
+  const myContract = createContractInstance();
+    try {
+    const supplierPlace = "Mumbai";
+    const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+    const name = "Medicine Name";
+    const description = "Medicine Description";
+    const quantity = 100;
+    const price = 10;
+    const manufacturingDate = Date.now();
+    const expiryDate = Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60;
+    await myContract.methods.addMedicine(name, description, quantity, price, manufacturingDate, expiryDate).
+    send({ from: adminaddress, gas: 6000000 });;
+
+    console.log('RETAILER added successfully.');
+    
+} catch (error) {
+  console.error('Error adding RETAILER', error);
+    
+
+}
+}
+
+async function medblock(name,quantity,price,manufacturingDate,expiryDate,supplierAddress,medicineID,distributorAddress,manufacturerAddress)
+{
+  const myContract = createContractInstance();
+    try {
+    const supplierPlace = "Mumbai";
+    const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+    const description = "Medicine Description";
+    await myContract.methods.addMedicine(name, description, quantity, price, manufacturingDate, expiryDate).
+    send({ from: adminaddress, gas: 6000000 });;
+
+    console.log('medicine created added successfully.');
+    
+} catch (error) {
+  console.error('Error adding RETAILER f', error);
+    
+
+}
+try {
+
+  const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+  console.log(manufacturerAddress);
+  const receiverAddress = manufacturerAddress;
+
+  await myContract.methods.RMSsupply(medicineID, receiverAddress, quantity)
+  .send({ from: supplierAddress,gas: 6000000 });;
+
+  console.log('medicine received from supplier added successfully.');
+  
+} catch (error) {
+console.error('Error adding RETAILER g', error);
+}
+
+try {
+
+  const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+  const description = "Medicine Description";
+  await myContract.methods.Manufacturing(medicineID, distributorAddress, quantity)
+  .send({ from: manufacturerAddress,gas: 6000000 });;
+
+
+  console.log('medicine sent to distributor added successfully.');
+  
+} catch (error) {
+console.error('Error adding RETAILER h', error);
+}
+
+}
+
+export {RMSctr,MANctr,DISctr,RETctr,addRMS,addMAN ,addDIS,addRET,qrblock,medblock};
 
 
 

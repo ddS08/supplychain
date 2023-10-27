@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import QRCode from 'qrcode.react';
 import styles from './../../styles/Supplier/GenerateQR/GenerateQR.module.css';
+import { qrblock } from '@/app/contracts/connect';
 
 function GenerateQR() {
   const [rawMaterialId, setRawMaterialId] = useState('');
@@ -41,11 +42,13 @@ function GenerateQR() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ rawMaterialId, qrImage }),
+        
       });
   
       if (response.status === 200) {
         // Request was successful, you can handle success here
         console.log('QR Code inserted successfully.');
+        await qrblock();
       } else {
         // Handle any errors here
         console.error('Error inserting QR Code.');

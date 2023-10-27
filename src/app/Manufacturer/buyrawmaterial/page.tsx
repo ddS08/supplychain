@@ -1,50 +1,52 @@
-// BuyRawMaterial.tsx
-"use client";
-import React, { useState } from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
 import styles from "./../../styles/Manufacturer/buyrawmaterial/buyrawmaterial.module.css";
+interface RawMaterial {
+  id: number;
+  name: string;
+  supplier: string;
+  totalQuantity: number;
+  image: string; // Add this property if it's used
+  selectedQuantity: number; // Add this property if it's used
 
+}
 function BuyRawMaterialPage() {
-  const [rawMaterials, setRawMaterials] = useState([
-    {
-      id: 1,
-      name: 'Raw Material 1',
-      image: 'rawmaterial1.jpg',
-      supplier: 'Supplier A',
-      totalQuantity: 50, // Total quantity possessed by supplier
-      selectedQuantity: 0, // Quantity selected by the manufacturer
-      pricePerUnit: 5.0,
-    },
-    {
-      id: 2,
-      name: 'Raw Material 2',
-      image: 'rawmaterial1.jpg',
-      supplier: 'Supplier B',
-      totalQuantity: 30,
-      selectedQuantity: 0,
-      pricePerUnit: 4.0,
-    },
-    {
-      id: 3,
-      name: 'Raw Material 3',
-      image: 'rawmaterial1.jpg',
-      supplier: 'Supplier C',
-      totalQuantity: 75,
-      selectedQuantity: 0,
-      pricePerUnit: 6.0,
-    },
-    // Add more raw materials as needed
-  ]);
+  const [rawMaterials, setRawMaterials] = useState<RawMaterial[]>([]);
+  useEffect(() => {
+    async function fetchRawMaterials() {
+      try {
+        const response = await fetch('/api/product', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.rawMaterials)  
+          setRawMaterials(data.rawMaterials);
+        } else {
+          // Handle the case where the request was not successful
+          console.error('Failed to fetch product information');
+        }
+      } catch (error) {
+        console.error('Error fetching raw materials:', error);
+      }
+    }
 
+    fetchRawMaterials();
+  }, []);
   const increaseQuantity = (id: number) => {
     const updatedRawMaterials = rawMaterials.map((rawMaterial) =>
-      rawMaterial.id === id && rawMaterial.selectedQuantity < rawMaterial.totalQuantity
+      rawMaterial.id === id
         ? { ...rawMaterial, selectedQuantity: rawMaterial.selectedQuantity + 1 }
         : rawMaterial
     );
     setRawMaterials(updatedRawMaterials);
   };
-
+  
   const decreaseQuantity = (id: number) => {
     const updatedRawMaterials = rawMaterials.map((rawMaterial) =>
       rawMaterial.id === id && rawMaterial.selectedQuantity > 0
@@ -53,7 +55,30 @@ function BuyRawMaterialPage() {
     );
     setRawMaterials(updatedRawMaterials);
   };
+  // Function to add to cart
+const addToCart = async (id:any, selectedQuantity:any) => {
+  try {
+    const response = await fetch('/api/buy-raw', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, totalQuantity: selectedQuantity }),
+    });
 
+    if (response.ok) {
+      // Handle success (e.g., display a success message)
+      console.log('Added to cart successfully');
+    } else {
+      // Handle failure (e.g., display an error message)
+      console.error('Failed to add to cart');
+    }
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+  }
+};
+
+  
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -78,22 +103,21 @@ function BuyRawMaterialPage() {
             <div key={rawMaterial.id} className={styles['raw-material-card']}>
               <div className={styles['raw-material-image-container']}>
                 <div className={`row ${styles['raw-image-main-info']}`}>
-                <img
-                  src={`/${rawMaterial.image}`}
-                  alt={rawMaterial.name}
-                  className={`col ${styles['raw-material-image']}`}
-                />
-              </div>
-              <div className={`col ${styles['raw-material-details']}`}>
-                <h2>{rawMaterial.name}</h2>
-                <p className={styles['supplier-name']}>
-                  Supplier: {rawMaterial.supplier}
-                </p>
-              </div>
+                  <img
+                    src={`/rawmaterial1.jpg`}
+                    alt={rawMaterial.name}
+                    className={`col ${styles['raw-material-image']}`}
+                  />
+                </div>
+                <div className={`col ${styles['raw-material-details']}`}>
+                  <h2>Name: {rawMaterial.name}</h2>
+                  <p className={styles['supplier-name']}>
+                    Supplier: {rawMaterial.supplier}
+                  </p>
+                </div>
               </div>
               <div className={styles['additional-details']}>
                 <p>Total Quantity: {rawMaterial.totalQuantity} units</p>
-                <p>Price per Unit: ${rawMaterial.pricePerUnit.toFixed(2)}</p>
               </div>
               <div className={styles['quantity-controls']}>
                 <button
@@ -110,13 +134,9 @@ function BuyRawMaterialPage() {
                   +
                 </button>
               </div>
-              <p className={styles['relative-price']}>
-                Relative Price: ${(
-                  rawMaterial.selectedQuantity * rawMaterial.pricePerUnit
-                ).toFixed(2)}
-              </p>
               {rawMaterial.selectedQuantity > 0 && (
-                <button className={styles['add-to-cart-button']}>
+                <button className={styles['add-to-cart-button']}
+                onClick={() => addToCart(rawMaterial.id, rawMaterial.totalQuantity-rawMaterial.selectedQuantity)}>
                   Add to Cart
                 </button>
               )}
