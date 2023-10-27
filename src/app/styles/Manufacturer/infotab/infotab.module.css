@@ -7,7 +7,7 @@
     height: 100vh;
     background-color: black;
     color: gold;
-    background-image: url('../../../../public/bg.png');
+    background-image: url('../../../../../public/bg.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -65,53 +65,33 @@
     margin-bottom: 20px;
   }
   
-  .function-cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  /* Table styles */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
   }
   
-  .function-card {
-    padding: 20px;
+  .table, .th, .td {
     border: 1px solid gold;
-    border-radius: 10px;
+  }
+  
+  .th, .td {
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .th {
     background-color: gold;
     color: black;
-    text-align: center;
-    min-width: 300px;
-    display: flexbox;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Add transform for hover effect */
   }
   
-  .function-card:hover {
+  .tr:nth-child(even) {
+    background-color: gold;
+    color: black;
+  }
+  
+  .tr:nth-child(odd) {
     background-color: black;
     color: gold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transform: scale(1.02); /* Add a slight zoom effect on hover */
   }
   
-  .function-card h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .function-card p {
-    font-size: 18px;
-  }
-  
-  .function-card:hover h2,
-  .function-card:hover p {
-    color: gold;
-  }
-  
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background to dim the content */
-    z-index: 5; /* Ensure it's above other elements */
-    pointer-events: auto; /* Prevent interaction with elements below the overlay */
-  }

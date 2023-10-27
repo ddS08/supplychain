@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./../../styles/distributor/selltoretailer/selltoretailer.module.css";
 import NoQRFoundpopup from "@/app/components/NoQRFoundpopup";
+import { getPublicKeyFromMetaMask } from "@/app/backend/ethaddressreceiver";
+import { RETsend } from "@/app/contracts/connect";
 interface Distributor {
   key: string; // Add this property to define the type
   Name: string;
@@ -33,7 +35,9 @@ function SellToRetailerPage() {
     }
     handleScan(qrCodeInput.value);
   };
-
+  const [publicKeyValue,setpublicKeyval] = useState('');
+  const [idval,setid] = useState('');
+  const [selectedDistributorKey, setSelectedDistributorKey] = useState('');
   const handleScan = async (rawmaterialval:string) => {
     // Simulating scanned data for demonstration
     try {
@@ -56,6 +60,19 @@ function SellToRetailerPage() {
       // Access the materialId from the response
       const materialId = responseData.materialId;
       console.log('Material ID:', materialId);
+      setid(responseData.id);
+      try {
+        const publicKeyValue = await getPublicKeyFromMetaMask();
+        console.log("dhyan",publicKeyValue); // Access and use publicKeyValue here
+  
+        setpublicKeyval(publicKeyValue);
+        
+        
+        // You can also set the value in state if you're in a React component
+      } catch (error) {
+        console.error('Error fetching public key:', error);
+      }
+
       getDistributorinfo();
       setShowPopup(true);
     } else {
@@ -86,6 +103,7 @@ function SellToRetailerPage() {
       const responseData = await response.json();
       console.log('QR Code found successfully:', responseData);
       const rows = responseData.rows;
+      setSelectedDistributorKey(rows[0].Key);
       setDistributors(rows);
       console.log('Rows:', rows);
       // Access the materialId from the response
@@ -139,10 +157,37 @@ const handleImageInputChange = (event: any) => {
   ];
 
   // Function to handle selling the medicine
-  const handleSell = (retailer: string) => {
+  const handleSell = async (retailer: string) => {
     // You can implement the logic for selling the medicine to the selected retailer here
     // This is a placeholder function for demonstration
-    alert(`Selling ${scannedMedicine?.name} to ${retailer}`);
+    let selectedretkey = '';
+    try {
+      const response = await fetch('/api/getkey', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ retailer }), // Send the id in the request body
+      });
+      
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Product data:', data.rows);
+      selectedretkey = data.rows[0].key;
+      console.log("Asdasd",selectedretkey);
+
+      // Handle the product data as needed
+      // You can access the product data using data.productData
+    } else {
+      // Handle the case where the request was not successful
+      console.error('Failed to retrieve product data');
+    }
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+  }
+  const numberid = parseInt(idval, 10);
+  console.log(numberid,publicKeyValue,selectedretkey);
+  const val = await RETsend(numberid,publicKeyValue,selectedretkey);
   };
 
   return (
@@ -202,21 +247,22 @@ const handleImageInputChange = (event: any) => {
             <p>Medicine Name: {scannedMedicine.name}</p>
             <div className={styles["retailer-dropdown"]}>
               <label htmlFor="retailer">Select Retailer:</label>
-              <select id="distributor" className={styles['input']}>
+              <select id="retailer" className={styles['input']}
+              onChange={(e) => setSelectedDistributorKey(e.target.value)}>
                   {distributors.map((distributor, index) => (
-                    <option key={distributor.key} value={distributor.Name}>
+                    <option key={distributor.key} value={distributor.key}>
                       {distributor.Name}
                     </option>
                   ))}
                 </select>
             </div>
-            <button
+            <button type="button"
               className={styles["sell-button"]}
               onClick={() => handleSell((document.getElementById("retailer") as HTMLSelectElement).value)}
             >
               Sell Medicine
             </button>
-            <button className={styles["popup-close-button"]} onClick={closePopup}>
+            <button  className={styles["popup-close-button"]} onClick={closePopup}>
               Close
             </button>
           </div>

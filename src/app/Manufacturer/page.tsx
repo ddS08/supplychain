@@ -82,6 +82,12 @@ setIsPopupVisible(true);
               <p>Scan raw material for quality control</p>
             </div>
           </Link>
+          <Link href="/Manufacturer/infotab">
+            <div className={styles['function-card']}>
+              <h2>your info</h2>
+              <p>View your sold and stock medications</p>
+            </div>
+          </Link>
         </div>
       </div>
       {isPopupVisible && message &&  (

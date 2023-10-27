@@ -4,23 +4,22 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./../../styles/distributor/scanqr/scanqr.module.css" 
 import NoQRFoundpopup from "@/app/components/NoQRFoundpopup";
+import { DISinfo } from "@/app/contracts/connect";
 
 function ScanQRPage() {
   const [showPopup, setShowPopup] = useState(false);
 
   const [isQuantityValid, setIsQuantityValid] = useState(true);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [yourArrayState, setYourArrayState] = useState([]);
   const [scannedMedicine, setScannedMedicine] = useState<null | { name: string }>({ name: '' });
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageBuffer, setImageBuffer] = useState('');
   const [rawmaterial, setRawMaterial] = useState('');
   const [pop2,setpop2]= useState(false);
-  const [scannedQRData, setScannedQRData] = useState<null | { image: string; medicine: string; manufacturer: string; manufacturingDate: string; expiryDate: string; }>({ 
-    image: "", 
-    medicine: "", 
+  const [scannedQRData, setScannedQRData] = useState<null | {  manufacturer: string; supplier:string }>({ 
+    supplier:"",
     manufacturer: "", 
-    manufacturingDate: "", 
-    expiryDate: "" 
   });
   const handleImageInputChange = (event: any) => {
     const file = event.target.files[0];
@@ -75,6 +74,18 @@ function ScanQRPage() {
       // Access the materialId from the response
       const materialId = responseData.materialId;
       console.log('Material ID:', materialId);
+      const id = responseData.id;
+      try {
+        const publicKeyValue = await DISinfo(id);
+        console.log("dhyan",publicKeyValue); // Access and use publicKeyValue here
+  
+        setYourArrayState(publicKeyValue || []);
+        console.log(yourArrayState[1][0]);
+        
+        // You can also set the value in state if you're in a React component
+      } catch (error) {
+        console.error('Error fetching public key:', error);
+      }
       setShowPopup(true);
     } else {
       // Handle any errors here
@@ -86,13 +97,7 @@ function ScanQRPage() {
   }
     
   };
-  const scannedData = {
-    image: "medicine1.jpg",
-    medicine: "Medicine X",
-    manufacturer: "Manufacturer A",
-    manufacturingDate: "2023-09-15",
-    expiryDate: "2024-09-15",
-  };
+
   // Function to handle scanning QR code (you can implement your scanning logic here)
 
   // Function to close the popup
@@ -150,11 +155,8 @@ function ScanQRPage() {
       </div>
       {showPopup && scannedQRData !== null && (
         <div className={styles.popup}>
-          <img src={`/${scannedQRData.image}`} alt="Medicine" className={styles['medicine-image']} />
-          <p>Medicine: {scannedQRData.medicine}</p>
-          <p>Manufacturer: {scannedQRData.manufacturer}</p>
-          <p>Manufacturing Date: {scannedQRData.manufacturingDate}</p>
-          <p>Expiry Date: {scannedQRData.expiryDate}</p>
+          <p>Supplier: {yourArrayState[1][0]}</p>
+          <p>Manufacturer: {yourArrayState[2][0]}</p>
           <button className={styles["popup-close-button"]} onClick={closePopup}>
             Close
           </button>

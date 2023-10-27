@@ -232,8 +232,54 @@ console.error('Error adding RETAILER h', error);
 
 }
 
-export {RMSctr,MANctr,DISctr,RETctr,addRMS,addMAN ,addDIS,addRET,qrblock,medblock};
+export {RMSctr,MANctr,DISctr,RETctr,addRMS,addMAN ,addDIS,addRET,qrblock,medblock, DISinfo,RETsend,getManuinfo};
 
 
+async function DISinfo(medicineID){
+    
+  const myContract = createContractInstance();
+  try {
+    const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+    const val = await myContract.methods.getMedicineProcessingHistory(medicineID).call({ from: adminaddress });
+    return val;
+  
+} catch (error) {
+console.error('Error adding Distributor', error);
+  
+
+}
+}
+
+async function RETsend(medicineID,distributorAddress,RetailerAddress)
+{
+  const myContract = createContractInstance();
+  try {
+    const quantity = '100';
+    const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+    const description = "Medicine Description";
+    await myContract.methods.Distribute(medicineID, RetailerAddress, quantity)
+    .send({ from: distributorAddress,gas: 6000000 });;
+  
+  
+    console.log('medicine sent to distributor added successfully.');
+    
+  } catch (error) {
+  console.error('Error adding RETAILER h', error);
+  }
+  
+  }
+
+
+  async function getManuinfo(manufacturerAddress){
+    const myContract = createContractInstance();
+    try{
+      const val = await myContract.methods.getManufacturerMedicine(manufacturerAddress)
+    .call();
+    return val;
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
 

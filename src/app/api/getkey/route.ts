@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   console.log('POST request received');
   const data = await request.json();
   console.log('Data=', data);
-  const name = data['selectedDistributor'];
+  const name = data['retailer'];
 
   let message = '';
   let rows: QueryResultRow[] = [];
