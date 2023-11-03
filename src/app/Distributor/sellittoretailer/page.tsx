@@ -186,8 +186,9 @@ const handleImageInputChange = (event: any) => {
     console.error('Error fetching product data:', error);
   }
   const numberid = parseInt(idval, 10);
-  console.log(numberid,publicKeyValue,selectedretkey);
-  const val = await RETsend(numberid,publicKeyValue,selectedretkey);
+  console.log("numberid,",numberid);
+  console.log(numberid-2,publicKeyValue,selectedretkey);
+  const val = await RETsend(numberid-1,publicKeyValue,selectedretkey);
   };
 
   return (

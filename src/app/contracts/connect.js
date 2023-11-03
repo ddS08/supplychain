@@ -4,7 +4,7 @@ import Web3 from 'web3';
 const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 
 function createContractInstance() {
-    const contractAddress = '0x6EB23dFbb3ddfb7dB7243d5FDC0849F8866Cb583'; // Replace with your contract's address
+    const contractAddress = '0x445c90B4034E488517E572719E9887147bf0ECdf'; // Replace with your contract's address
     return new web3.eth.Contract(SupplyChainABI, contractAddress);
     
   }
@@ -206,6 +206,7 @@ try {
   const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
   console.log(manufacturerAddress);
   const receiverAddress = manufacturerAddress;
+  console.log(supplierAddress);
 
   await myContract.methods.RMSsupply(medicineID, receiverAddress, quantity)
   .send({ from: supplierAddress,gas: 6000000 });;
@@ -240,7 +241,9 @@ async function DISinfo(medicineID){
   const myContract = createContractInstance();
   try {
     const adminaddress='0x4D61290539D9a062E119aa2AE179faEB6d73b8b9';
+    console.log(medicineID);
     const val = await myContract.methods.getMedicineProcessingHistory(medicineID).call({ from: adminaddress });
+    console.log("val",val);
     return val;
   
 } catch (error) {
@@ -249,6 +252,7 @@ console.error('Error adding Distributor', error);
 
 }
 }
+
 
 async function RETsend(medicineID,distributorAddress,RetailerAddress)
 {

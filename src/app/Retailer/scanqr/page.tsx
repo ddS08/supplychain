@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./../../styles/distributor/scanqr/scanqr.module.css" 
 import NoQRFoundpopup from "@/app/components/NoQRFoundpopup";
+import { DISinfo, RETsend } from "@/app/contracts/connect";
 
 function ScanQRPage() {
   const [showPopup, setShowPopup] = useState(false);
@@ -14,6 +15,7 @@ function ScanQRPage() {
   const [imageBuffer, setImageBuffer] = useState('');
   const [rawmaterial, setRawMaterial] = useState('');
   const [pop2,setpop2]= useState(false);
+  const [yourArrayState, setYourArrayState] = useState([]);
   const [scannedQRData, setScannedQRData] = useState<null | { image: string; medicine: string; manufacturer: string; manufacturingDate: string;DistributorName: string; expiryDate: string; }>({ 
     image: "", 
     medicine: "", 
@@ -84,6 +86,18 @@ function ScanQRPage() {
       // Access the materialId from the response
       const materialId = responseData.materialId;
       console.log('Material ID:', materialId);
+      const id = responseData.id;
+      try {
+        const publicKeyValue = await DISinfo(id-1);
+        console.log("dhyan",publicKeyValue); // Access and use publicKeyValue here
+  
+        setYourArrayState(publicKeyValue || []);
+        console.log(yourArrayState[1][0]);
+        
+        // You can also set the value in state if you're in a React component
+      } catch (error) {
+        console.error('Error fetching public key:', error);
+      }
       setShowPopup(true);
     } else {
       // Handle any errors here
@@ -151,12 +165,9 @@ function ScanQRPage() {
       </div>
       {showPopup && scannedQRData !== null && (
         <div className={styles.popup}>
-          <img src={`/${scannedQRData.image}`} alt="Medicine" className={styles['medicine-image']} />
-          <p>Medicine: {scannedQRData.medicine}</p>
-          <p>Manufacturer: {scannedQRData.manufacturer}</p>
-          <p>Distributor: {scannedQRData.DistributorName}</p>
-          <p>Manufacturing Date: {scannedQRData.manufacturingDate}</p>
-          <p>Expiry Date: {scannedQRData.expiryDate}</p>
+          <p>Supplier: {yourArrayState[1][0] !== 0 ? yourArrayState[1][0] : '0xd13CEB1f97ffC9a81c3D311Ea768DC5f0B3ADa3A'}  </p>
+          <p>Manufacturer: {yourArrayState[2][0] !== 0 ? yourArrayState[2][0] : '0xC9F48c648726e8EA9d76F0B13fD4FB5DaFc31788'}  </p>
+          <p>Distributor: {yourArrayState[3][0] !== 0 ? yourArrayState[3][0] : '0x99920D52a111f6D03ae51a5E56F4390168144874'}  </p>
           <button className={styles["popup-close-button"]} onClick={closePopup}>
             Close
           </button>

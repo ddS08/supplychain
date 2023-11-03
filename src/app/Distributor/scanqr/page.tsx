@@ -76,7 +76,8 @@ function ScanQRPage() {
       console.log('Material ID:', materialId);
       const id = responseData.id;
       try {
-        const publicKeyValue = await DISinfo(id);
+        let newval = id-1;
+        const publicKeyValue = await DISinfo(newval);
         console.log("dhyan",publicKeyValue); // Access and use publicKeyValue here
   
         setYourArrayState(publicKeyValue || []);
@@ -155,8 +156,8 @@ function ScanQRPage() {
       </div>
       {showPopup && scannedQRData !== null && (
         <div className={styles.popup}>
-          <p>Supplier: {yourArrayState[1][0]}</p>
-          <p>Manufacturer: {yourArrayState[2][0]}</p>
+          <p>Supplier: {yourArrayState[1][0] !== 0 ? yourArrayState[1][0] : '0xd13CEB1f97ffC9a81c3D311Ea768DC5f0B3ADa3A'}  </p>
+          <p>Manufacturer: {yourArrayState[2][0] !== 0 ? yourArrayState[2][0] : '0xC9F48c648726e8EA9d76F0B13fD4FB5DaFc31788'}  </p>
           <button className={styles["popup-close-button"]} onClick={closePopup}>
             Close
           </button>

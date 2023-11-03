@@ -1,157 +1,134 @@
 "use client"
-import React, { useState, useEffect } from 'react';
-import styles from '../../styles/user/purchaseitem/purchaseitem.module.css';
-import Link from 'next/link';
-import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar';
-
+import styles from './../../styles/user/purchaseitem/purchaseitem.module.css'
+import Image from 'next/image';
 interface Medicine {
   id: number;
   name: string;
   cost: number;
-  tablets: number;
+  tablets?: number; // Make it optional by adding "?"
   manufacturingDate: string;
   expiryDate: string;
   manufacturer: string;
-  image:string;
+  image: string;
 }
-const handleAddToCart = (medicine: Medicine) => {
-    // Implement your logic to add the selected medicine to the cart
-    console.log(`Added ${medicine.name} to the cart`);
-  };
 
+const handleAddToCart = async (medicine: Medicine) => {
+  // Implement your logic to add the selected medicine to the cart
+  try {
+    const response = await fetch('/api/addToCart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name:medicine.name }),
+    });
 
-const medicinesData: Medicine[] = [
-  {
-    id: 1,
-    name: 'Medicine 1',
-    cost: 10,
-    tablets: 30,
-    image: 'medicine1.jpg',
-    manufacturingDate: '01/2023',
-    expiryDate: '12/2024',
-    manufacturer: 'Manufacturer A',
-  },
-  {
-    id: 2,
-    name: 'Medicine 2',
-    cost: 15,
-    tablets: 60,
-    manufacturingDate: '03/2023',
-    expiryDate: '11/2024',
-    manufacturer: 'Manufacturer B',
-    image: 'medicine.jpeg',
-  },
-  {
-    id: 3,
-    name: 'Medicine 3',
-    cost: 15,
-    tablets: 60,
-    manufacturingDate: '03/2023',
-    expiryDate: '11/2024',
-    manufacturer: 'Manufacturer B',
-    image: 'medicine1.jpg',
-  },
-  {
-    id: 4,
-    name: 'Medicine 4',
-    cost: 15,
-    tablets: 60,
-    manufacturingDate: '03/2023',
-    expiryDate: '11/2024',
-    image: 'medicine.jpeg',
-    manufacturer: 'Manufacturer B',
-  },
-];
+    if (response.status === 200) {
+      console.log(`Added ${medicine.name} to the cart`);
+      // Update your UI or state to reflect that the medicine is added to the cart
+    } else {
+      console.error('Failed to add to cart');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
-function PurchaseItemPage() {
+function MedicineList() {
+  const [medicines, setMedicines] = useState<Medicine[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/get-man-mat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            // Include the request payload here if needed
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.medicinesData) {
+            setMedicines(data.medicinesData);
+          }
+        } else {
+          console.error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with your authentication logic
-  const [showFullImage, setShowFullImage] = useState(false); // State to control the full image display
+  const [showFullImage, setShowFullImage] = useState(false);
   const [fullImageSrc, setFullImageSrc] = useState<string>('');
 
   const handleCardClick = (medicine: Medicine) => {
     setSelectedMedicine(medicine.id === selectedMedicine?.id ? null : medicine);
   };
+
   const handleImageClick = (medicine: Medicine) => {
     // Set the full image source and display the modal
-    setFullImageSrc(`/${medicine.image}`);
+    setFullImageSrc('/medicine1.jpg');
     setShowFullImage(true);
   };
+
   const closeFullImage = () => {
     // Close the full image modal
     setShowFullImage(false);
   };
+  const convertBufferToBase64 = (buffer: Buffer) => {
+    return `data:image/jpeg;base64,${buffer.toString('base64')}`;
+  };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectedMedicine &&
-        !document.querySelector(`.${styles['medicine-card']}.selected`)?.contains(event.target as Node)
-      ) {
-        setSelectedMedicine(null);
-      }
-    };
-
-    if (selectedMedicine) {
-      // Attach the event listener when a card is selected
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      // Remove the event listener when no card is selected
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      // Cleanup the event listener on unmount
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [selectedMedicine]);
-  return (
-    <div className={styles.container}>
-      <Navbar/>
-      <div className={styles['purchase-item-page']}>
-        <div className={styles['medicine-list']}>
-          {medicinesData.map((medicine) => (
-            <div
-              key={medicine.id}
-              className={`${styles['medicine-card']} ${
-                selectedMedicine?.id === medicine.id ? styles['selected'] : ''
-              }`}
-              onClick={() => handleCardClick(medicine)}
-            >
-              <div className={styles['medicine-info']}>
-                <div className={styles['medicine-details-left']}>
-                  <h3>{medicine.name}</h3>
-                  <p>Cost: ${medicine.cost.toFixed(2)}</p>
-                  <p>Tablets: {medicine.tablets}</p>
-                </div>
-
-                <div
-                  className={styles['medicine-image-container']}
-                  onClick={() => handleImageClick(medicine)} // Handle image click
-                >
-                  <Image
-                    src={`/${medicine.image}`}
-                    alt={medicine.name}
-                    width={100}
-                    height={100}
-                    className={styles['medicine-image']}
-                  />
-                </div>
+  return (<div>
+    <Navbar/>
+    <div className={styles['purchase-item-page']}>
+      
+      <div className={styles['medicine-list']}>
+        {medicines.map((medicine) => (
+          <div
+            key={medicine.id}
+            className={`${styles['medicine-card']} ${
+              selectedMedicine?.id === medicine.id ? styles['selected'] : ''
+            }`}
+            onClick={() => handleCardClick(medicine)}
+          >
+            <div className={styles['medicine-info']}>
+              <div className={styles['medicine-details-left']}>
+                <h3>{medicine.name}</h3>
+                <p className={styles.medicineCost}>Cost: ₹{medicine.cost}</p>
               </div>
-              {selectedMedicine?.id === medicine.id && (
-                <div className={styles['medicine-details']}>
-                  <p>Manufacturing Date: {medicine.manufacturingDate}</p>
-                  <p>Expiry Date: {medicine.expiryDate}</p>
-                  <p>Manufacturer: {medicine.manufacturer}</p>
-                  <button className={styles['add-to-cart-button']} onClick={() => handleAddToCart(medicine)}>
-                    Add to Cart
-                  </button>
-                </div>
-              )}
+
+              <div className={styles['medicine-image-container']} onClick={() => handleImageClick(medicine)}>
+                <Image
+                  src='/medicine1.jpg'
+                  alt={medicine.name}
+                  width={100}
+                  height={100}
+                  className={styles['medicine-image']}
+                />
+              </div>
             </div>
-          ))}
-        </div>
+            {selectedMedicine?.id === medicine.id && (
+              <div className={styles['medicine-details']}>
+                <p>Manufacturing Date: {medicine.manufacturingDate}</p>
+                <p>Expiry Date: {medicine.expiryDate}</p>
+                <button className={styles['add-to-cart-button']} onClick={() => handleAddToCart(medicine)}>
+                  Add to Cart
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
       {showFullImage && (
         <div className={styles['full-image-overlay']} onClick={closeFullImage}>
@@ -166,10 +143,9 @@ function PurchaseItemPage() {
         </div>
       )}
     </div>
-
-    
+    </div>
   );
 }
 
-export default PurchaseItemPage;
 
+export default MedicineList;

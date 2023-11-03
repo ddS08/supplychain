@@ -50,6 +50,9 @@ function SellMedicinePage() {
   const [distributors, setDistributors] = useState<Distributor[]>([]);
   const [idval,setidval] = useState('');
   const [publicKeyval,setpublicKeyval] = useState('');
+  const [imageBuffer1, setImageBuffer1] = useState('');
+
+  const [selectedImage1, setSelectedImage1] = useState<string | null>(null);
 
   useEffect(() => {
     // Generate a random and unique raw material ID
@@ -198,6 +201,31 @@ function SellMedicinePage() {
       reader.readAsDataURL(file);
     }
   };
+  const handleImageInputChange1 = (event: any) => {
+    const file = event.target.files[0];
+    const files = event.target.files && event.target.files[0];
+    if (files) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage1(imageUrl);
+    }
+
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          let base64String = e.target.result as string;
+          if (base64String.startsWith('data:image/jpeg;base64,')) {
+            base64String = base64String.slice('data:image/jpeg;base64,'.length);
+          }
+          setImageBuffer1(base64String);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
   
   const insertQRCode = async (rawMaterialId: string, qrImage: string) => {
     try {
@@ -223,8 +251,9 @@ function SellMedicinePage() {
     }
 };
 const handlesellbutton = async () => {
+  let publicKeyValue = '';
   try {
-    const publicKeyValue = await getPublicKeyFromMetaMask();
+    publicKeyValue = await getPublicKeyFromMetaMask();
     console.log("dhyan",publicKeyValue); // Access and use publicKeyValue here
 
     // You can also set the value in state if you're in a React component
@@ -246,6 +275,7 @@ const handlesellbutton = async () => {
   const tabletsPerPack = tabletsPerPackInput.value;
   const costPerPack = costPerPackInput.value;
   const selectedDistributor = distributorSelect.value;
+  console.log("sele",selectedDistributor);
   let selecteddistkey = '';
   try {
     const response = await fetch('/api/getkey', {
@@ -280,11 +310,36 @@ const handlesellbutton = async () => {
   console.log('Tablets Per Pack:', tabletsPerPack);
   console.log('Cost Per Pack:', costPerPack);
   console.log('Selected Distributor:', selectedDistributor);
-  console.log("pb",publicKeyval);
+  console.log("pb",publicKeyValue);
   console.log('idval,',idval);
   const numberid = parseInt(idval, 10);
   // Convert the manufacturingDate string to a Date object
 const date = new Date(manufacturingDate);
+const productData1 = {
+  manufacturingDate: manufacturingDate,
+  expiryDate: expiryDate,
+  image: imageBuffer1, // Replace with actual binary image data
+  cost: costPerPack,
+  quantityCart: tabletsPerPack,
+  name: medicineName,
+};
+
+try {
+  const response = await fetch('/api/add-man-mat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(productData1),
+  });
+
+  if (response.ok) {
+    // Handle a successful response here, e.g., display a success message.
+  } else {
+    // Handle an error response here, e.g., display an error message.
+  }
+} catch (error) {
+  console.error('An error occurred:', error);
+  // Handle the error, e.g., display an error message to the user.
+}
 
 // Get the timestamp in seconds (as a uint256 value)
 const timestamp = Math.floor(date.getTime() / 1000);
@@ -292,7 +347,8 @@ const date2 = new Date(expiryDate);
 
 // Get the timestamp in seconds (as a uint256 value)
 const timestamp2 = Math.floor(date2.getTime() / 1000);
-const val = medblock(medicineName,tabletsPerPack,costPerPack,timestamp,timestamp2,productData?.supplier_eth_address,numberid,selecteddistkey,publicKeyval);
+console.log(selecteddistkey);
+const val = medblock(medicineName,tabletsPerPack,costPerPack,timestamp,timestamp2,productData?.supplier_eth_address,numberid,selecteddistkey,publicKeyValue);
 console.log("vas",val);
 
 };
@@ -432,6 +488,7 @@ console.log("vas",val);
                 id="medicineImage"
                 accept="image/*"
                 className={styles['input-field-image']}
+                onChange={handleImageInputChange1}
               />
               <div className={styles['generate-button']}>
           <button onClick={handleGenerateQR}>Generate QR Code</button>
